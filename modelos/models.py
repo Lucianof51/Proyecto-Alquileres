@@ -161,7 +161,7 @@ class Comprobante_electronico(models.Model):
     tipo_de_comprobante=models.CharField(max_length=30, null=True)
     tipo_de_documento=models.CharField(max_length=30,null=True)
     DNI=models.CharField(max_length=30,null=True)
-    CUIT=models.CharField(max_length=30, null=True)
+    CUIL=models.CharField(max_length=30, null=True)
     IVA=models.CharField(max_length=30, null=True)
     
     inquilino = models.ForeignKey(
