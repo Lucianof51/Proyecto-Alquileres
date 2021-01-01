@@ -7,7 +7,7 @@ class Locador (models.Model):
     DNI=models.CharField(max_length=30, null=True)
     CUIT=models.IntegerField(null=True)
     telefono=models.IntegerField(null=True)
-    dirección=models.CharField(max_length=30, null=True)
+    direccion=models.CharField(max_length=30, null=True)
     email=models.EmailField(max_length=30, null=True)
     cuenta_bancaria=models.CharField(max_length=30, null=True)
 
@@ -16,12 +16,12 @@ class Locador (models.Model):
 
 class Propiedad (models.Model):
 
-    ubicación=models.CharField(max_length=30, null=True)
+    ubicacion=models.CharField(max_length=30, null=True)
     estado=models.CharField(max_length=30, null=True)
     tipo=models.CharField(max_length=30, null=True)
   
     def __str__(self):
-        return (self.ubicación)
+        return (self.ubicacion)
 
 class Inquilino (models.Model):
 
@@ -30,7 +30,7 @@ class Inquilino (models.Model):
     DNI=models.CharField(max_length=30, null=True)
     CUIT=models.IntegerField(null=True)
     telefono=models.IntegerField(null=True)
-    dirección=models.CharField(max_length=30,null=True)
+    direccion=models.CharField(max_length=30,null=True)
     email=models.EmailField(max_length=30,null=True)
     cuenta_bancaria=models.CharField(max_length=30,null=True)
     
@@ -44,7 +44,7 @@ class Garante (models.Model):
     DNI=models.CharField(max_length=30,null=True)
     CUIT=models.IntegerField(null=True)
     telefono=models.IntegerField(null=True)
-    dirección=models.CharField(max_length=30,null=True)
+    direccion=models.CharField(max_length=30,null=True)
     email=models.EmailField(max_length=30,null=True)
     cuenta_bancaria=models.CharField(max_length=30,null=True)
     
@@ -57,7 +57,7 @@ class Proveedor (models.Model):
     DNI=models.CharField(max_length=30,null=True)
     CUIT=models.IntegerField(null=True)
     telefono=models.IntegerField(null=True)
-    dirección=models.CharField(max_length=30,null=True)
+    direccion=models.CharField(max_length=30,null=True)
     email=models.EmailField(max_length=30,null=True)
     cuenta_bancaria=models.CharField(max_length=30,null=True)
     
@@ -71,7 +71,7 @@ class Contrato (models.Model):
     punitorios=models.FloatField(max_length=30,null=True, blank=True)
     fecha_ingreso=models.DateField(null=True)
     fecha_egreso=models.DateField(null=True)
-    fecha_rescisión=models.DateField(null=True,blank=True)
+    fecha_rescision=models.DateField(null=True,blank=True)
     tipo_contrato=models.CharField(max_length=30,null=True)
     vencimiento_pago=models.DateField(null=True)
     
@@ -103,7 +103,7 @@ class Pago (models.Model):
 
     monto=models.FloatField(max_length=30,null=True)
     honorarios=models.FloatField(max_length=30,null=True)
-    punitorios=models.FloatField(max_length=30,null=True, blank=True)
+    punitorios=models.FloatField(max_length=30,null=True)
     fecha_pago=models.DateField()
     agua=models.FloatField(max_length=30,null=True, blank=True)
     luz=models.FloatField(max_length=30,null=True, blank=True)
