@@ -10,36 +10,84 @@
 
 <ion-content>
   <ion-card color="dark">
-    <ion-card-content color="dark">
-      <ion-input type="text" placeholder="Descripción" #descripcion2></ion-input>
-      <ion-item color="dark">
-        <ion-label>Estado</ion-label>
-        <ion-select [(ngModel)]="Estado" #estado2=ngModel>
-          <ion-select-option value="Pendiente">Pendiente</ion-select-option>
-          <ion-select-option value="Listo">Listo</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-input type="date" #fecha2>Fecha de creación:</ion-input>
+  <div>
+  <form [formGroup]="registrationForm" (ngSubmit)="submit()">
 
-  <ion-item color="dark">
+    <ion-item color="dark">
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-textarea>
+        <ion-input inputmode="text" formControlName="descripcion"></ion-input>
+      </ion-textarea>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.descripcion">
+      <ng-container *ngIf="descripcion.hasError(error.type) && (descripcion.dirty || descripcion.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item color="dark">
+      <ion-label>Estado</ion-label>
+      <ion-select formControlName="estado" [(ngModel)]="Estado">
+        <ion-select-option value="Pendiente">Pendiente</ion-select-option>
+        <ion-select-option value="Listo">Listo</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.estado">
+      <ng-container *ngIf="estado.hasError(error.type) && (estado.dirty || estado.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item color="dark">
+      <ion-label position="stacked">Fecha de creacion</ion-label>
+      <ion-input type="date" formControlName="fecha"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.fecha">
+      <ng-container *ngIf="fecha.hasError(error.type) && (fecha.dirty || fecha.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+    
+    <ion-item color="dark">
       <ion-label>Proveedor</ion-label>
-      <ion-select [(ngModel)]="proveedor.id" #proveedor=ngModel>
+      <ion-select formControlName="proveedor" [(ngModel)]="proveedor.id">
         <ion-select-option *ngFor="let proveedor of proveedores" value="{{proveedor.id}}">{{proveedor.nombre}}</ion-select-option>
       </ion-select>
     </ion-item>
+    <div *ngFor="let error of errorMessages.proveedor">
+      <ng-container *ngIf="proveedor.hasError(error.type) && (proveedor.dirty || proveedor.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
 
-  <ion-item color="dark">
-    <ion-label>Propiedad</ion-label>
-    <ion-select [(ngModel)]="propiedad.id" #propiedad=ngModel>
-      <ion-select-option *ngFor="let propiedad of propiedades" value="{{propiedad.id}}">{{propiedad.ubicacion}}</ion-select-option>
-    </ion-select>
-  </ion-item>
- <br>
-  <ion-input type="number" placeholder="Costo" #costo2></ion-input>
+
+
+    <ion-item color="dark">
+      <ion-label>Propiedad</ion-label>
+      <ion-select formControlName="propiedad" [(ngModel)]="propiedad.id">
+        <ion-select-option *ngFor="let propiedad of propiedades" value="{{propiedad.id}}">{{propiedad.ubicacion}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.propiedad">
+      <ng-container *ngIf="propiedad.hasError(error.type) && (propiedad.dirty || propiedad.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
+    <ion-item color="dark">
+      <ion-label position="floating">Costo</ion-label>
+        <ion-input inputmode="text" formControlName="costo"></ion-input>
+    </ion-item>
+    <div *ngFor="let error of errorMessages.costo">
+      <ng-container *ngIf="costo.hasError(error.type) && (costo.dirty || costo.touched)">
+        <small class="error-message">{{error.message}}</small>
+      </ng-container>
+    </div>
+
   <br>
   <ion-item color="colorcuatro">
     <ion-label>¿Desea adjuntar una imagen?</ion-label>
-    <ion-checkbox color="dark" checked slot="start" [(ngModel)]=check4></ion-checkbox>
+    <ion-checkbox color="dark" checked slot="start" [(ngModel)]=check4 [ngModelOptions]="{standalone: true}"></ion-checkbox>
   </ion-item>
   <ion-item disabled="{{!check4}}" color="dark">
     <ion-label>
@@ -48,7 +96,11 @@
     </ion-label>
   </ion-item>
   
-<ion-button color="primary" (click)="saveNewReporte(descripcion2, estado2, fecha2, proveedor, propiedad, costo2)">GUARDAR</ion-button>
-</ion-card-content>
+  <ion-button [disabled]="!registrationForm.valid" type="submit" expand="block">AGREGAR <ion-icon slot="end"
+  name="create">
+</ion-icon>
+</ion-button>
+</form>
+</div>
 </ion-card>
 </ion-content>
