@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from modelos.models import Locador, Propiedad, Inquilino, Garante, Proveedor, Contrato, Pago, Reporte, Cierre_de_caja, Aviso, Comprobante_electronico, ReportePrueba, Data
+from modelos.models import Locador, Propiedad, Inquilino, Garante, Proveedor, Contrato, Pago, Reporte, Cierre_de_caja, Aviso, Comprobante_electronico, ReportePrueba, Data, Login
 
 admin.site.register(Locador)
 admin.site.register(Propiedad)
@@ -14,4 +14,5 @@ admin.site.register(Cierre_de_caja)
 admin.site.register(Aviso)
 admin.site.register(Comprobante_electronico)
 admin.site.register(ReportePrueba)
+admin.site.register(Login)
 admin.site.register(Data)

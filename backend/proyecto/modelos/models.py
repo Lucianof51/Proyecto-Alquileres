@@ -206,7 +206,12 @@ class ReportePrueba (models.Model):
     costo=models.FloatField(max_length=30,null=True)
     cover = models.ImageField(blank=True, null=True, upload_to=upload_path)
 
-
+class Login (models.Model):
+    id=models.AutoField(primary_key=True)
+    email=models.EmailField(max_length=30,null=True)
+    contraseña=models.CharField(max_length=30,null=True)
+    nombre=models.CharField(max_length=30,null=True)
+    apellido=models.CharField(max_length=30,null=True)
 
 class Data(models.Model):
     Nombre = models.CharField(max_length=32, blank=False)

@@ -2,12 +2,14 @@
 <ion-menu side="start" menuId="first" contentId="main">
     <ion-header>
       <ion-toolbar color="colortres">
-        <ion-title>Menu</ion-title>
+          <ion-title>Menu</ion-title>
+            <ion-menu-button slot="end" size="small" type="button" color="danger" (click)="logout()"><ion-icon name="exit-outline"></ion-icon>
+            </ion-menu-button>
       </ion-toolbar>
     </ion-header>
   
     <ion-content>
-      <ion-list>
+     
         <ion-menu-toggle>
           <ion-item color="color" [routerLink]="['/propiedades']">Propiedades</ion-item>
           <ion-item color="colordos" [routerLink]="['/locadores']">Locadores</ion-item>
@@ -15,7 +17,8 @@
           <ion-item color="colordos" [routerLink]="['/garantes']">Garantes</ion-item>
           <ion-item color="color" [routerLink]="['/contratos']">Contratos</ion-item>
           <ion-item color="colordos" [routerLink]="['/proveedores']">Proveedores</ion-item>
+          
         </ion-menu-toggle>
-      </ion-list>
+    
     </ion-content>
   </ion-menu>

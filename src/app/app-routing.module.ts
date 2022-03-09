@@ -3,13 +3,22 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./home/home-routing.module').then(m => m.HomePageRoutingModule)
+    },
+    ]
   },
   {
     path: 'contrato-update',
@@ -348,6 +357,14 @@ const routes: Routes = [
     path: 'alquiler-v',
     // tslint:disable-next-line:max-line-length
     loadChildren: () => import('./lista-alquileres/alquileres-vencimiento/alquileres-vencimiento.module').then(m => m.AlquileresVencimientoPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'registrar',
+    loadChildren: () => import('./registrar/registrar.module').then( m => m.RegistrarPageModule)
   }
 ];
 
