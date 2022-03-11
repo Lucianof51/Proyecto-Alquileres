@@ -68,5 +68,16 @@ export class PagosPage implements OnInit {
     contratoId= this.id;
     this.router.navigate(['/pagos', contratoId, pagoId]);
     }
-
+  doRefresh(event) {
+      console.log('Begin async operation');
+      this.pagoService.getPagos()
+      .subscribe(data => {
+        console.log(data);
+        this.pagos = data;
+      });
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
 }

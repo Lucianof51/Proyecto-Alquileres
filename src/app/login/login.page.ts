@@ -73,6 +73,10 @@ export class LoginPage implements OnInit {
     });
     await alertElement.present();
   }
+  else {
+    console.log(this.usuario.id);
+    this.router.navigate(['/home', this.usuario.id]);
+  }
   console.log(this.usuario);
   });
 }

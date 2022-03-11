@@ -41,5 +41,17 @@ export class ReportePage implements OnInit {
   verReporte(reporteId){
     this.router.navigate(['/reportes', reporteId]);
     }
+  doRefresh(event) {
+      console.log('Begin async operation');
+      this.reporteService.getReportes()
+      .subscribe(data => {
+        console.log(data);
+        this.reportes = data;
+      });
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
 
 }

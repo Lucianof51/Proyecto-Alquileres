@@ -37,4 +37,17 @@ export class GarantesPage implements OnInit {
   toggleMenu() {
     this.menuCtrl.toggle();
    }
+  
+   doRefresh(event) {
+    console.log('Begin async operation');
+    this.garantesService.getGarantes()
+    .subscribe(data => {
+      console.log(data);
+      this.garantes = data;
+    });
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
 }

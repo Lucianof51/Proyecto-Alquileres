@@ -47,6 +47,10 @@ export class LoginService {
 });
   }
 
+  getUsuarioId (usuarioId): Observable<any> {
+    return this.http.get(this.APIurl + '/login/' + usuarioId, { headers: this.httpHeaders });
+  }
+
     /*const found = this.guardarDatos().find(async item => { 
       if(item.email === email)
      {

@@ -35,7 +35,20 @@ export class InquilinosPage implements OnInit {
     this.router.navigate(['/inquilinos', inquilinoId]);
     }
 
-    toggleMenu() {
+  toggleMenu() {
       this.menuCtrl.toggle();
      }
+  doRefresh(event) {
+      console.log('Begin async operation');
+      this.inquilinosService.getInquilinos()
+      .subscribe(data => {
+        console.log(data);
+        this.inquilinos = data;
+      });
+      setTimeout(() => {
+        console.log('Async operation has ended');
+        event.target.complete();
+      }, 2000);
+    }
+  
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { HttpClient} from '@angular/common/http';
+import { LoginService } from '../login/login.service';
+import { Usuario } from '../login/usuario.model';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -9,12 +11,23 @@ import { HttpClient} from '@angular/common/http';
 })
 export class HomePage implements OnInit {
 
-  constructor(private router: Router,
+  usuario: Usuario[];
+  constructor(private activatedRoute: ActivatedRoute, private router: Router,
     // tslint:disable-next-line:align
-    private menuCtrl: MenuController, private http: HttpClient) {}
+    private menuCtrl: MenuController, private http: HttpClient, private loginService: LoginService) {}
     
 
  ngOnInit(){
+  this.activatedRoute.paramMap.subscribe(paramMap => {
+
+    const recipeId = paramMap.get('usuarioId');
+    console.log(recipeId);
+    this.loginService.getUsuarioId(recipeId)
+  .subscribe(data => {
+    this.usuario = data;
+    console.log(this.usuario);
+  });
+  });
   function getDia(index){
     const dia = new Array(7);
     dia[0] = 'Domingo';

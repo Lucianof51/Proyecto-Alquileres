@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'home',
     children: [
       {
-        path: '',
+        path: ':usuarioId',
         loadChildren: () => import('./home/home-routing.module').then(m => m.HomePageRoutingModule)
     },
     ]
