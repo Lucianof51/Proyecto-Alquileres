@@ -149,7 +149,7 @@ export class ContratoAddPage implements OnInit {
     ]],
     fecha_ingreso: ['', [Validators.required]],
     fecha_egreso: ['', [Validators.required]],
-    fecha_rescision: [''],
+    fecha_rescision: [null],
     tipo_contrato: [''],
     vencimiento_pago: ['',  [
       Validators.required,
