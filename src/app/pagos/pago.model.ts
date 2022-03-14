@@ -9,4 +9,5 @@ export interface Pago {
     gas: number;
     expensas: number;
     contrato: number;
+    usuario: number;
 }

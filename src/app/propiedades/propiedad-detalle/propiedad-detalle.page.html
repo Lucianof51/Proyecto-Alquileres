@@ -30,11 +30,12 @@
     </ion-item>
 
     <ion-item color="color" *ngIf="propiedades?.estado == 'En alquiler'">
-      <h3><b>Estado:</b> {{propiedades?.estado}}</h3>
-      &nbsp;
-      <ion-button color="colortres" (click)="gotoAlquileres()">
+      <ion-label color="dark">
+        <h1><b>Estado:</b> {{propiedades?.estado}}</h1>
+      <ion-button slot="end" color="colortres" (click)="gotoAlquileres()">
         <ion-icon color="light"name="reader-outline"></ion-icon>
       </ion-button>
+    </ion-label>
     </ion-item>
 
     <ion-item color="colordos">

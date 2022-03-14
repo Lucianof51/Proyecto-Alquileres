@@ -7,6 +7,7 @@ import {ContratosService} from '../contratos.service';
 import { AlertController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
+import { HomeService } from 'src/app/home/home.service';
 
 @Component({
   selector: 'app-contrato-add',
@@ -15,7 +16,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ContratoAddPage implements OnInit {
 
-  constructor(private garantesService: GarantesService, private propiedadesService: PropiedadesService,
+  constructor(private homeService: HomeService, private garantesService: GarantesService, private propiedadesService: PropiedadesService,
               private locadoresService: LocadoresService, private contratoService: ContratosService,
               private inquilinosService: InquilinosService,
               private activatedRoute: ActivatedRoute, private router: Router, private alertCtrl: AlertController, private formBuilder: FormBuilder) { }
@@ -23,8 +24,10 @@ export class ContratoAddPage implements OnInit {
   garantes = [];
   locadores = [];
   inquilinos = [];
+  usuarioId: any;
 
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
     this.propiedadesService.getPropiedades()
       .subscribe(data => {
       console.log(data);
@@ -155,19 +158,23 @@ export class ContratoAddPage implements OnInit {
     propiedad: ['', [Validators.required]],
     locador: ['', [Validators.required]],
     inquilino: ['', [Validators.required]],
-    garante: ['', [Validators.required]]
+    garante: ['', [Validators.required]],
+    usuario: ['']
   });
 
   public async submit() {
-    this.propiedadesService.getPropiedad(this.registrationForm.value.propiedad).subscribe(data => {
-      data.estado = 'En alquiler';  
-      this.propiedadesService.updatePropiedad(data).subscribe(res => {
-        alert(res.toString());
-      });
-    });
+   
+    this.registrationForm.value.usuario = this.usuarioId;
     this.contratoService.addContrato(this.registrationForm.value).subscribe(async res => {
       alert(res.toString());
+      this.propiedadesService.getPropiedad(this.registrationForm.value.propiedad).subscribe(data => {
+        data.estado = 'En alquiler';  
+        this.propiedadesService.updatePropiedad(data).subscribe(res => {
+          alert(res.toString());
+        });
+      });
       const alertElement = await this.alertCtrl.create({
+        
         header: 'Contrato creado',
         message: 'Tu contrato se ha generado con exito',
         buttons: [

@@ -4,4 +4,5 @@ export interface Propiedad {
     ubicacion: string;
     estado: string;
     tipo: string;
+    usuario: number;
 }

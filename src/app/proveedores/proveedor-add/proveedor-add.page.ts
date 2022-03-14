@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ProveedoresService } from '../proveedores.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { HomeService } from 'src/app/home/home.service';
 @Component({
   selector: 'app-proveedor-add',
   templateUrl: './proveedor-add.page.html',
@@ -10,9 +11,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ProveedorAddPage implements OnInit {
 
-  constructor(private proveedorService: ProveedoresService, private router: Router, private alertCtrl: AlertController,  private formBuilder: FormBuilder) { }
-
+  constructor(private homeService: HomeService, private proveedorService: ProveedoresService, private router: Router, private alertCtrl: AlertController,  private formBuilder: FormBuilder) { }
+  usuarioId: any;
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
   }
   get nombre() {
     return this.registrationForm.get("nombre");
@@ -100,11 +102,12 @@ export class ProveedorAddPage implements OnInit {
         Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$')
       ]
     ],
-    cuenta_bancaria: ['', [Validators.required, Validators.maxLength(100)]]
+    cuenta_bancaria: ['', [Validators.required, Validators.maxLength(100)]],
+    usuario: ['']
   });
 
   public async submit() {
-    console.log(this.registrationForm.value);
+    this.registrationForm.value.usuario = this.usuarioId;
     this.proveedorService.addProveedor(this.registrationForm.value).subscribe(res => {
       alert(res.toString());
   });

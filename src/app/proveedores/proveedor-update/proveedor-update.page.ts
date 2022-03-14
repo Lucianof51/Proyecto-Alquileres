@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { ProveedoresService } from '../proveedores.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { HomeService } from 'src/app/home/home.service';
 
 @Component({
   selector: 'app-proveedor-update',
@@ -12,7 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class ProveedorUpdatePage implements OnInit {
 
    // tslint:disable-next-line:max-line-length
-   constructor(private activatedRoute: ActivatedRoute, private proveedorService: ProveedoresService, private router: Router, private alertCtrl: AlertController, private formBuilder: FormBuilder) { }
+   constructor(private homeService: HomeService, private activatedRoute: ActivatedRoute, private proveedorService: ProveedoresService, private router: Router, private alertCtrl: AlertController, private formBuilder: FormBuilder) { }
    id2: any;
    nombre2: any;
    apellido2: any;
@@ -22,8 +23,9 @@ export class ProveedorUpdatePage implements OnInit {
    direccion2: any;
    email2: any;
    cuenta_bancaria2: any;
-
+   usuarioId: any;
    ngOnInit() {
+      this.usuarioId = this.homeService.setUsuarioId();
      this.activatedRoute.paramMap.subscribe(paramMap => {
        if (!paramMap.has('proveedorId')) {
          // redirect
@@ -134,11 +136,13 @@ registrationForm = this.formBuilder.group({
       Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$')
     ]
   ],
-  cuenta_bancaria: ['', [Validators.required, Validators.maxLength(100)]]
+  cuenta_bancaria: ['', [Validators.required, Validators.maxLength(100)]],
+  usuario: ['']
 });
 
 public async submit() {
   this.registrationForm.value.id = this.id2; 
+  this.registrationForm.value.usuario = this.usuarioId;
   this.proveedorService.updateProveedor(this.registrationForm.value).subscribe(res => {
     alert(res.toString());
 });

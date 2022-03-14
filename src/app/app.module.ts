@@ -18,6 +18,8 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { LogueaPipe } from './src/app/loguea.pipe';
+import { HomePage } from './home/home.page';
+import { HomePageModule } from './home/home.module';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import { LogueaPipe } from './src/app/loguea.pipe';
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })],
   exports: [MenuComponent],
   providers: [
+    HomePage,
+    HomePageModule,
     StatusBar,
     SplashScreen,
     FormBuilder,

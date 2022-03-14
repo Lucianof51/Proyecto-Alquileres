@@ -18,6 +18,7 @@
 <ion-content [fullscreen]="true">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
     <ion-item-group *ngFor='let pago of pagos; index as i'>
       <ion-item *ngIf="(i+1)%2 == 0" color="color">
         <ion-button slot="end" color="success" (click)="updatePagos(pago.id)">ACTUALIZAR</ion-button>

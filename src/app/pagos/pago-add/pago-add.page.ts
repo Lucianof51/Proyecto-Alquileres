@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ContratosService } from 'src/app/contratos/contratos.service';
 import { PagosService } from '../pagos.service';
 import { AlertController } from '@ionic/angular';
+import { HomeService } from 'src/app/home/home.service';
 @Component({
   selector: 'app-pago-add',
   templateUrl: './pago-add.page.html',
@@ -12,11 +13,13 @@ import { AlertController } from '@ionic/angular';
 export class PagoAddPage implements OnInit {
 
   // tslint:disable-next-line:max-line-length
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private contratoService: ContratosService, private pagoService: PagosService, private alertCtrl: AlertController) { }
+  constructor(private homeService: HomeService, private router: Router, private activatedRoute: ActivatedRoute, private contratoService: ContratosService, private pagoService: PagosService, private alertCtrl: AlertController) { }
   id: any;
+  usuarioId: any;
   contratos = [];
   state = { checked: ''};
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
      this.activatedRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('pagoId')) {
         // redirect
@@ -50,7 +53,7 @@ public saveNewPago(monto2, honorarios2, punitorios2: HTMLInputElement,
   const punitorios = punitorios2.value;
   // tslint:disable-next-line:variable-name
   const fecha_pago = fecha_pago2.value;
-
+  const usuario = this.usuarioId;             
   let agua = agua2.value;
   if (agua === ''){
     agua = null;
@@ -140,7 +143,8 @@ public saveNewPago(monto2, honorarios2, punitorios2: HTMLInputElement,
     tasas3,
     tasas4desc,
     tasas4,
-    contrato
+    contrato,
+    usuario
   };
   this.pagoService.addPago(val).subscribe(async res => {
     alert(res.toString());

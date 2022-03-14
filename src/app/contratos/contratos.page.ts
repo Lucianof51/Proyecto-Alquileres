@@ -6,6 +6,7 @@ import { Contrato } from './contrato.model';
 import { Propiedad } from '../propiedades/propiedad.model';
 import { ContratosPropiedades } from './contratosPropiedades.model';
 import { MenuController } from '@ionic/angular';
+import { HomeService } from '../home/home.service';
 
 @Component({
   selector: 'app-contratos',
@@ -13,66 +14,39 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./contratos.page.scss'],
 })
 export class ContratosPage implements OnInit {
-  constructor(private menuCtrl: MenuController, private contratosService: ContratosService, private router: Router, private propiedadesService: PropiedadesService) { }
+  constructor(private homeService: HomeService, private menuCtrl: MenuController, private contratosService: ContratosService, private router: Router, private propiedadesService: PropiedadesService) { }
   contratos: Contrato[];
   propiedades: Propiedad[];
   contratosPropiedades: ContratosPropiedades;
   propiedadNombre: any;
+  usuario: any;
+  usuarioId: any;
 
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
     this.contratosService.getContratos()
     .subscribe(data => {
-      this.contratos = data;
+      console.log(this.usuarioId);
       this.propiedadNombre = this.propiedadesService.getPropiedadId(data.propiedad);
-  });
-    this.contratosService.guardarDatos();
-    this.contratos = this.contratosService.guardarDatos().map(contrato => {
-      return {
-        id: contrato.id,
-        valor: contrato.valor,
-        honorarios: contrato.honorarios,
-        punitorios: contrato.punitorios,
-        fecha_ingreso: contrato.fecha_ingreso,
-        fecha_egreso: contrato.fecha_egreso,
-        fecha_rescision: contrato.fecha_rescision,
-        vencimiento_pago: contrato.vencimiento_pago,
-        tipo_contrato: contrato.tipo_contrato,
-        propiedad: contrato.propiedad,
-       // propiedadName: this.propiedadNombre,
-        locador: contrato.locador,
-        inquilino: contrato.inquilino,
-        garante: contrato.garante
-      };
-      });
-      console.log(this.contratos)
+      this.contratos = data.filter(data => this.usuarioId === data.usuario);
+     
+    });
+   
   }
 
-  ionViewDidEnter() {
-   // this.contratosService.guardarDatos();
-    this.contratos = this.contratosService.guardarDatos().map(contrato => {
-      return {
-        id: contrato.id,
-        valor: contrato.valor,
-        honorarios: contrato.honorarios,
-        punitorios: contrato.punitorios,
-        fecha_ingreso: contrato.fecha_ingreso,
-        fecha_egreso: contrato.fecha_egreso,
-        fecha_rescision: contrato.fecha_rescision,
-        vencimiento_pago: contrato.vencimiento_pago,
-        tipo_contrato: contrato.tipo_contrato,
-        propiedad: contrato.propiedad,
-        propiedadName: this.propiedadesService.getPropiedadId(contrato.propiedad).ubicacion,
-        locador: contrato.locador,
-        inquilino: contrato.inquilino,
-        garante: contrato.garante
-      };
-      });
-    console.log(this.contratos);
+  ionViewDidEnter(){
+    this.usuarioId = this.homeService.setUsuarioId();
+    this.contratosService.getContratos()
+    .subscribe(data => {
+      console.log(this.usuarioId);
+      this.propiedadNombre = this.propiedadesService.getPropiedadId(data.propiedad);
+      this.contratos = data.filter(data => this.usuarioId === data.usuario);
+    });
   }
 
 
   goToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home', this.usuarioId]);
   }
 
   addNewContrato(){
@@ -94,11 +68,10 @@ export class ContratosPage implements OnInit {
     this.menuCtrl.toggle();
    }
    doRefresh(event) {
-    console.log('Begin async operation');
     this.contratosService.getContratos()
     .subscribe(data => {
-      console.log(data);
-      this.contratos = data;
+      this.contratos = data.filter(data => this.usuarioId === data.usuario);
+    
     });
     setTimeout(() => {
       console.log('Async operation has ended');

@@ -17,7 +17,7 @@ export class GarantesService {
        fechas: '2009-08-06',
     },
 ];
-
+  garante: Persona[];
   readonly APIurl = 'http://127.0.0.1:8000';
   constructor(private http: HttpClient) { }
   httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
@@ -32,6 +32,17 @@ export class GarantesService {
 
   getGarante(garanteId): Observable<any> {
     return this.http.get(this.APIurl + '/garante/' + garanteId, { headers: this.httpHeaders });
+  }
+
+  guardarDatos(){
+    this.getGarantes().subscribe(data => {
+      this.garante = data;
+    });
+    return this.garante;
+  }
+  getGaranteUs(id: number){
+    this.garante = this.guardarDatos();
+    return this.guardarDatos().find(item => { return item.usuario === id})
   }
 
   deleteGarante(garanteId){

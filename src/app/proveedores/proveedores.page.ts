@@ -3,6 +3,7 @@ import { ProveedoresService } from './proveedores.service';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { Persona } from '../persona.model';
+import { HomeService } from '../home/home.service';
 
 
 @Component({
@@ -12,19 +13,33 @@ import { Persona } from '../persona.model';
 })
 export class ProveedoresPage implements OnInit {
 
-  constructor(private proveedoresService: ProveedoresService, private router: Router , private menuCtrl: MenuController) { }
-  proveedores: Persona;
-
+  constructor(private homeService: HomeService, private proveedoresService: ProveedoresService, private router: Router , private menuCtrl: MenuController) { }
+  proveedores: Persona[];
+  usuarioId: any;
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
     this.proveedoresService.getProveedores()
     .subscribe(data => {
-      console.log(data);
-      this.proveedores = data;
-    });
+      this.proveedores = data.filter(data => this.usuarioId === data.usuario);
+      this.proveedores = this.proveedores.map(garante =>{
+        return {
+        id: garante.id,
+        nombre: garante.nombre,
+        apellido: garante.apellido,
+        DNI: garante.DNI,
+        CUIT: garante.CUIT,
+        telefono: garante.telefono,
+        direccion: garante.direccion,
+        email: garante.email,
+        cuenta_bancaria: garante.cuenta_bancaria,
+        usuario: garante.usuario
+        };
+      });
+  });
   }
 
   goToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home', this.usuarioId]);
   }
 
   addNewProveedor(){
@@ -44,12 +59,25 @@ export class ProveedoresPage implements OnInit {
      }
   
   doRefresh(event) {
-      console.log('Begin async operation');
-      this.proveedoresService.getProveedores()
-      .subscribe(data => {
-        console.log(data);
-        this.proveedores = data;
+    this.usuarioId = this.homeService.setUsuarioId();
+    this.proveedoresService.getProveedores()
+    .subscribe(data => {
+      this.proveedores = data.filter(data => this.usuarioId === data.usuario);
+      this.proveedores = this.proveedores.map(garante =>{
+        return {
+        id: garante.id,
+        nombre: garante.nombre,
+        apellido: garante.apellido,
+        DNI: garante.DNI,
+        CUIT: garante.CUIT,
+        telefono: garante.telefono,
+        direccion: garante.direccion,
+        email: garante.email,
+        cuenta_bancaria: garante.cuenta_bancaria,
+        usuario: garante.usuario
+        };
       });
+  });
       setTimeout(() => {
         console.log('Async operation has ended');
         event.target.complete();

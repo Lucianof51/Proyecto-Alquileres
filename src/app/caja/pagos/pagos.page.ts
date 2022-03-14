@@ -6,6 +6,7 @@ import { PropiedadesService } from 'src/app/propiedades/propiedades.service';
 import { Pago } from 'src/app/pagos/pago.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { HomeService } from 'src/app/home/home.service';
 
 @Component({
   selector: 'app-pagos',
@@ -14,31 +15,31 @@ import { tap } from 'rxjs/operators';
 })
 export class PagosPage implements OnInit {
   // tslint:disable-next-line:max-line-length
-  constructor( private router: Router, private propiedadesService: PropiedadesService, private pagoService: PagosService, private contratoService: ContratosService) { }
+  constructor(private homeService: HomeService, private router: Router, private propiedadesService: PropiedadesService, private pagoService: PagosService, private contratoService: ContratosService) { }
   pagos: Pago[];
   contratoId: any;
   propiedadNombre: any;
   propiedadId: any;
   contratos: Contrato[];
-
+  usuarioId: any;
 
   ngOnInit() {
- 
+    this.usuarioId = this.homeService.setUsuarioId();
 
       this.pagoService.getPagos()
     .subscribe(data => {
-      this.pagos = data;
+      this.pagos = data.filter(data => this.usuarioId === data.usuario);
       this.propiedadNombre = this.propiedadesService.getPropiedadId(data.propiedad).ubicacion;
 
      
   });
   this.pagoService.getPagos()
   .subscribe(data => {
-    this.pagos = data;
+    this.pagos = data.filter(data => this.usuarioId === data.usuario);
     this.propiedadId = this.contratoService.getContratoId(data.contrato).propiedad;
    
 });
-    this.pagoService.guardarDatos();
+
     this.pagos = this.pagoService.guardarDatos().map(pago => {
     return {
       id: pago.id,
@@ -51,6 +52,7 @@ export class PagosPage implements OnInit {
       gas: pago.gas,
       expensas: pago.expensas,
       contrato: pago.contrato,
+      usuario: pago.usuario
     };
     });
     console.log(this.pagos);
@@ -60,7 +62,15 @@ export class PagosPage implements OnInit {
 
 
   ionViewDidEnter() {
-    this.pagos = this.pagoService.guardarDatos().map(pago => {
+    this.usuarioId = this.homeService.setUsuarioId();
+    this.pagoService.getPagos()
+    .subscribe(data => {
+      console.log(this.usuarioId);
+      this.propiedadNombre = this.propiedadesService.getPropiedadId(data.propiedad).ubicacion;
+      this.propiedadId = this.contratoService.getContratoId(data.contrato).propiedad;
+      this.pagos = data.filter(data => this.usuarioId === data.usuario);
+    });
+    this.pagos = this.pagos.map(pago => {
     return {
       id: pago.id,
       monto: pago.monto,
@@ -73,6 +83,7 @@ export class PagosPage implements OnInit {
       expensas: pago.expensas,
       contrato: pago.contrato,
       propiedadName: this.propiedadesService.getPropiedadId(this.contratoService.getContratoId(pago.contrato).propiedad).ubicacion,
+      usuario: pago.usuario
     };
     });
     console.log(this.pagos);

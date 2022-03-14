@@ -8,6 +8,7 @@ import { ChildActivationStart, Router } from '@angular/router';
 import { Images } from '../images.model';
 import { HttpClient} from '@angular/common/http';
 import { FormBuilder, Validators } from "@angular/forms";
+import { HomeService } from 'src/app/home/home.service';
 
 @Component({
   selector: 'app-reporte-add',
@@ -23,9 +24,10 @@ export class ReporteAddPage implements OnInit {
   cover: File;
   habilitar: boolean = false;
   // tslint:disable-next-line:max-line-length
-  constructor(private reporteService: ReporteService, private propiedadesService: PropiedadesService, private proveedorService: ProveedoresService, private imagePicker: ImagePicker, private alertCtrl: AlertController, private router: Router, private http: HttpClient, private formBuilder: FormBuilder ) { }
-
+  constructor(private homeService: HomeService, private reporteService: ReporteService, private propiedadesService: PropiedadesService, private proveedorService: ProveedoresService, private imagePicker: ImagePicker, private alertCtrl: AlertController, private router: Router, private http: HttpClient, private formBuilder: FormBuilder ) { }
+  usuarioId: any;
 ngOnInit() {
+  this.usuarioId = this.homeService.setUsuarioId();
   this.propiedadesService.getPropiedades()
       .subscribe(data => {
       this.propiedades = data;
@@ -114,9 +116,11 @@ registrationForm = this.formBuilder.group({
       Validators.required,
       Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')
     ]],
+  usuario: ['']
 });
 
 public submit() {
+  this.registrationForm.value.usuario = this.usuarioId;
   const uploadData = new FormData();
   uploadData.append('descripcion', this.registrationForm.value.descripcion);
   uploadData.append('estado', this.registrationForm.value.estado);
@@ -124,12 +128,11 @@ public submit() {
   uploadData.append('proveedor', this.registrationForm.value.proveedor);
   uploadData.append('propiedad', this.registrationForm.value.propiedad);
   uploadData.append('costo', this.registrationForm.value.costo);
-
   if(this.habilitar)
   {
     uploadData.append('cover', this.cover, this.cover.name);
   }
-
+  uploadData.append('usuario', this.registrationForm.value.usuario);
   this.http.post('http://127.0.0.1:8000/reporteprueba', uploadData).subscribe(async res => {
     alert(res.toString());
     const alertElement = await this.alertCtrl.create({
@@ -175,7 +178,7 @@ const fecha = fecha2.value;
 const proveedor = proveedor2.value;
 const propiedad = propiedad2.value;
 const costo = costo2.value;
-
+const usuario = this.usuarioId;
 // console.log(descripcion, estado, fecha, proveedor, propiedad, costo, cover);
 const uploadData = new FormData();
 uploadData.append('descripcion', descripcion);
@@ -184,10 +187,12 @@ uploadData.append('fecha', fecha);
 uploadData.append('proveedor', proveedor);
 uploadData.append('propiedad', propiedad);
 uploadData.append('costo', costo);
+
 if(this.habilitar)
 {
   uploadData.append('cover', this.cover, this.cover.name);
 }
+uploadData.append('usuario', usuario);
 this.http.post('http://127.0.0.1:8000/reporteprueba', uploadData).subscribe(
   data => console.log(data),
   error => console.log(error)

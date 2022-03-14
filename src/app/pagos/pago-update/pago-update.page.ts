@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { HomeService } from 'src/app/home/home.service';
 import { Pago } from '../pago.model';
 import { PagosService } from '../pagos.service';
 
@@ -11,10 +12,12 @@ import { PagosService } from '../pagos.service';
 })
 export class PagoUpdatePage implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router,private pagoService: PagosService,private alertCtrl: AlertController) { }
+  constructor(private homeService: HomeService, private activatedRoute: ActivatedRoute, private router: Router,private pagoService: PagosService,private alertCtrl: AlertController) { }
   pago: Pago;
   id: any;
+  usuarioId: any;
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('pagoId')) {
         // redirect
@@ -58,6 +61,7 @@ export class PagoUpdatePage implements OnInit {
   const punitorios = punitorios2.value;
   // tslint:disable-next-line:variable-name
   const fecha_pago = fecha_pago2.value;
+  const usuario = this.usuarioId; 
   let agua = agua2.value;
   if (agua === ''){
     agua = null;
@@ -90,7 +94,8 @@ export class PagoUpdatePage implements OnInit {
     luz,
     gas,
     expensas,
-    contrato
+    contrato,
+    usuario
   };
   this.pagoService.updatePago(val).subscribe(async res => {
     alert(res.toString());

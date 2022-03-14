@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { HomeService } from 'src/app/home/home.service';
 import { LocadoresService } from 'src/app/locadores/locadores.service';
 import { PropiedadesService } from '../propiedades.service';
 
@@ -14,7 +15,7 @@ import { PropiedadesService } from '../propiedades.service';
 export class PropiedadUpdatePage implements OnInit {
  
 
-  constructor(private propiedadService: PropiedadesService,
+  constructor(private homeService: HomeService,
               private router: Router,
               private activatedRoute: ActivatedRoute, private alertCtrl: AlertController, private formBuilder: FormBuilder, private locadoresService: LocadoresService, private http: HttpClient) { }
               id2: any;
@@ -27,6 +28,7 @@ export class PropiedadUpdatePage implements OnInit {
               habilitar3: boolean = false;
               cover4: File;
               habilitar4: boolean = false;
+              usuarioId: any;
 
               get ubicacion() {
                 return this.registrationForm.get("ubicacion");
@@ -71,9 +73,10 @@ export class PropiedadUpdatePage implements OnInit {
                 ],
                 locador: ['', [Validators.required]],
                 inventario: [''],
+                usuario: ['']
               });
               public async submit() {
-               
+                this.registrationForm.value.usuario = this.usuarioId; 
                 const uploadData = new FormData();
                 uploadData.append('id', this.id2);
                 uploadData.append('ubicacion', this.registrationForm.value.ubicacion);
@@ -81,6 +84,7 @@ export class PropiedadUpdatePage implements OnInit {
                 uploadData.append('estado', this.registrationForm.value.estado);
                 uploadData.append('locador', this.registrationForm.value.locador);
                 uploadData.append('inventario', this.registrationForm.value.inventario);
+                uploadData.append('usuario', this.registrationForm.value.usuario);
           
                 if(this.habilitar)
                 {
@@ -134,6 +138,7 @@ export class PropiedadUpdatePage implements OnInit {
                 this.habilitar4 = true;
               }
   ngOnInit() {
+    this.registrationForm.value.usuario = this.usuarioId;
     this.activatedRoute.paramMap.subscribe(paramMap => {
       if (!paramMap.has('propiedadId')) {
         // redirect

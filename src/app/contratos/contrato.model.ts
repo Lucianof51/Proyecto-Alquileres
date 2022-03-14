@@ -12,4 +12,5 @@ export interface Contrato {
     locador: number;
     inquilino: number;
     garante: number;
+    usuario: number;
 }

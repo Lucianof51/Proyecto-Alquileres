@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LocadoresService } from '../locadores.service';
 import { AlertController } from '@ionic/angular';
 import { FormBuilder, Validators } from '@angular/forms';
+import { HomeService } from 'src/app/home/home.service';
 @Component({
   selector: 'app-locador-add',
   templateUrl: './locador-add.page.html',
@@ -10,9 +11,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class LocadorAddPage implements OnInit {
 
-  constructor(private locadorService: LocadoresService, private router: Router, private alertCtrl: AlertController, private formBuilder: FormBuilder) { }
-
+  constructor(private homeService: HomeService, private locadorService: LocadoresService, private router: Router, private alertCtrl: AlertController, private formBuilder: FormBuilder) { }
+  usuarioId: any;
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
   }
 
   get nombre() {
@@ -101,10 +103,12 @@ export class LocadorAddPage implements OnInit {
         Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$')
       ]
     ],
-    cuenta_bancaria: ['', [Validators.required, Validators.maxLength(100)]]
+    cuenta_bancaria: ['', [Validators.required, Validators.maxLength(100)]],
+    usuario: ['']
   });
 
   public async submit() {
+    this.registrationForm.value.usuario = this.usuarioId;
     console.log(this.registrationForm.value);
     this.locadorService.addLocadores(this.registrationForm.value).subscribe(res => {
       alert(res.toString());

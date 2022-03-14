@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Propiedad } from './propiedad.model';
 import { AlertController, MenuController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular'
+import { HomeService } from '../home/home.service';
 
 @Component({
   selector: 'app-propiedades',
@@ -13,25 +14,32 @@ import { ActionSheetController } from '@ionic/angular'
 })
 export class PropiedadesPage implements OnInit {
 
-  propiedades: Propiedad;
 
-  constructor(private menuCtrl: MenuController, private propiedadService: PropiedadesService, public alertCtrl: AlertController,
+  constructor(private homeService: HomeService, private menuCtrl: MenuController, private propiedadService: PropiedadesService, public alertCtrl: AlertController,
     // tslint:disable-next-line:align
     private router: Router, public actionSheetController: ActionSheetController) { }
-    propiedad: Propiedad;
+    propiedades: Propiedad[];
+    usuarioId: any;
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
+    console.log(this.usuarioId);
     this.propiedadService.getPropiedades()
     .subscribe(data => {
-      this.propiedades = data;
+      console.log(data);
+      this.propiedades = data.filter(data => this.usuarioId === data.usuario);
+      this.propiedades = this.propiedades.map(prop =>{
+      return {
+      id: prop.id,
+      ubicacion: prop.ubicacion,
+      estado: prop.estado,
+      tipo: prop.estado,
+      usuario: prop.usuario
+      };
     });
+    console.log(this.propiedades);
+});
   }
 
-  ionViewWillEnter() {
-    this.propiedadService.getPropiedades()
-    .subscribe(data => {
-      this.propiedades = data;
-    });
-  }
   toggleMenu() {
     this.menuCtrl.toggle();
    }
@@ -40,7 +48,7 @@ export class PropiedadesPage implements OnInit {
   }
 
   goToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home', this.usuarioId]);
   }
 
   updatePropiedad(propiedadId){
@@ -51,12 +59,21 @@ export class PropiedadesPage implements OnInit {
     }
 
   doRefresh(event) {
-      console.log('Begin async operation');
-      this.propiedadService.getPropiedades()
-      .subscribe(data => {
-        console.log(data);
-        this.propiedad = data;
-      });
+    console.log('Begin async operation');
+    this.usuarioId = this.homeService.setUsuarioId();
+    this.propiedadService.getPropiedades()
+    .subscribe(data => {
+      this.propiedades = data.filter(data => this.usuarioId === data.usuario);
+      this.propiedades = this.propiedades.map(prop =>{
+      return {
+      id: prop.id,
+      ubicacion: prop.ubicacion,
+      estado: prop.estado,
+      tipo: prop.estado,  
+      usuario: prop.usuario
+      };
+    });
+  });
       setTimeout(() => {
         console.log('Async operation has ended');
         event.target.complete();

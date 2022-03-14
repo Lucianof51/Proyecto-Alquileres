@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { FormBuilder, Validators } from "@angular/forms";
 import { LocadoresService } from 'src/app/locadores/locadores.service';
 import { HttpClient } from '@angular/common/http';
+import { HomeService } from 'src/app/home/home.service';
 
 @Component({
   selector: 'app-propiedad-add',
@@ -12,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./propiedad-add.page.scss'],
 })
 export class PropiedadAddPage implements OnInit {
-  constructor(private propiedadService: PropiedadesService,
+  constructor(private homeService: HomeService,
               private router: Router, private alertCtrl: AlertController,
               private formBuilder: FormBuilder, private locadoresService: LocadoresService, private http: HttpClient) { }
               locadores = [];
@@ -24,6 +25,7 @@ export class PropiedadAddPage implements OnInit {
               habilitar3: boolean = false;
               cover4: File;
               habilitar4: boolean = false;
+              usuarioId: any;
 
               get ubicacion() {
                 return this.registrationForm.get("ubicacion");
@@ -68,15 +70,17 @@ export class PropiedadAddPage implements OnInit {
                 ],
                 locador: ['', [Validators.required]],
                 inventario: [''],
+                usuario: ['']
               });
               public async submit() {
-               
+                this.registrationForm.value.usuario = this.usuarioId;
                 const uploadData = new FormData();
                 uploadData.append('ubicacion', this.registrationForm.value.ubicacion);
                 uploadData.append('tipo', this.registrationForm.value.tipo);
                 uploadData.append('estado', this.registrationForm.value.estado);
                 uploadData.append('locador', this.registrationForm.value.locador);
                 uploadData.append('inventario', this.registrationForm.value.inventario);
+                uploadData.append('usuario', this.registrationForm.value.usuario);
           
                 if(this.habilitar)
                 {
@@ -145,6 +149,7 @@ export class PropiedadAddPage implements OnInit {
                 this.habilitar4 = true;
               }
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
     this.locadoresService.getLocadores()
     .subscribe(data => {
       console.log(data);

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GarantesService } from '../garantes.service';
 import { AlertController } from '@ionic/angular';
+import { HomeService } from 'src/app/home/home.service';
 import { FormBuilder, Validators } from '@angular/forms';
 @Component({
   selector: 'app-garante-add',
@@ -10,9 +11,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class GaranteAddPage implements OnInit {
 
-  constructor(private garanteService: GarantesService, private router: Router, private alertCtrl: AlertController, private formBuilder: FormBuilder) { }
-  
+  constructor(private homeService: HomeService, private garanteService: GarantesService, private router: Router, private alertCtrl: AlertController, private formBuilder: FormBuilder) { }
+  usuarioId: any;
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
   }
 
   get nombre() {
@@ -72,7 +74,7 @@ export class GaranteAddPage implements OnInit {
     cuenta_bancaria: [
       { type: 'required', message: 'Cuenta bancaria es requerida' },
       { type: 'maxlength', message: 'Cuenta bancaria no puede tener mas de 100 caracteres' }
-    ],
+    ]
   }
 
   registrationForm = this.formBuilder.group({
@@ -101,10 +103,12 @@ export class GaranteAddPage implements OnInit {
         Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$')
       ]
     ],
-    cuenta_bancaria: ['', [Validators.required, Validators.maxLength(100)]]
+    cuenta_bancaria: ['', [Validators.required, Validators.maxLength(100)]],
+    usuario: ['']
   });
 
   public async submit() {
+    this.registrationForm.value.usuario = this.usuarioId;
     console.log(this.registrationForm.value);
     this.garanteService.addGarante(this.registrationForm.value).subscribe(res => {
       alert(res.toString());

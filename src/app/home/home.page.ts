@@ -4,24 +4,30 @@ import { MenuController } from '@ionic/angular';
 import { HttpClient} from '@angular/common/http';
 import { LoginService } from '../login/login.service';
 import { Usuario } from '../login/usuario.model';
+import { HomeService } from './home.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-
+  usuarioId: number;
   usuario: Usuario[];
-  constructor(private activatedRoute: ActivatedRoute, private router: Router,
+  recipeId: any;
+  providers: []
+  constructor(private homeService: HomeService, private activatedRoute: ActivatedRoute, private router: Router,
     // tslint:disable-next-line:align
     private menuCtrl: MenuController, private http: HttpClient, private loginService: LoginService) {}
     
 
  ngOnInit(){
   this.activatedRoute.paramMap.subscribe(paramMap => {
-
     const recipeId = paramMap.get('usuarioId');
-    console.log(recipeId);
+    this.usuarioId = Number(recipeId);
+    console.log(this.usuarioId);
+    console.log(this.homeService.getUsuarioId(this.usuarioId));
+    console.log(this.homeService.setUsuarioId());
     this.loginService.getUsuarioId(recipeId)
   .subscribe(data => {
     this.usuario = data;
@@ -41,13 +47,13 @@ export class HomePage implements OnInit {
 }
   const d = new Date();
   const n = getDia(d.getDay());
-  console.log(n);
-  console.log(d);
  }
 
  toggleMenu() {
+ 
   this.menuCtrl.toggle();
  }
+
 
  detalle_caja(){
   this.router.navigate(['/detalle_caja']);

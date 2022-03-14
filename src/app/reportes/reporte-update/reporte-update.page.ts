@@ -5,6 +5,7 @@ import { PropiedadesService } from 'src/app/propiedades/propiedades.service';
 import { ProveedoresService } from 'src/app/proveedores/proveedores.service';
 import { ReporteService } from '../reporte.service';
 import { HttpClient} from '@angular/common/http';
+import { HomeService } from 'src/app/home/home.service';
 
 @Component({
   selector: 'app-reporte-update',
@@ -16,7 +17,8 @@ export class ReporteUpdatePage implements OnInit {
   proveedores = [];
   habilitar: boolean = false;
   cover: File;
-  constructor(private reporteService: ReporteService,
+  usuarioId: any;
+  constructor(private homeService: HomeService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private propiedadesService: PropiedadesService,
@@ -26,6 +28,7 @@ export class ReporteUpdatePage implements OnInit {
 
 id2: any;
 ngOnInit() {
+this.usuarioId = this.homeService.setUsuarioId();
 this.propiedadesService.getPropiedades()
   .subscribe(data => {
   this.propiedades = data;
@@ -57,7 +60,8 @@ const fecha = fecha2.value;
 const proveedor = proveedor2.value;
 const propiedad = propiedad2.value;
 const id = this.id2;
-const costo = costo2.value
+const costo = costo2.value;
+const usuario = this.usuarioId;
 const uploadData = new FormData();
 uploadData.append('id', id);
 uploadData.append('descripcion', descripcion);
@@ -70,11 +74,11 @@ if(this.habilitar)
 {
   uploadData.append('cover', this.cover, this.cover.name);
 }
+uploadData.append('usuario', usuario);
 this.http.put('http://127.0.0.1:8000/reporteprueba/' + id, uploadData).subscribe(
   data => console.log(data),
   error => console.log(error)
 );
-
 const alertElement = await this.alertCtrl.create({
   header: 'Reporte actualizado',
   message: 'El reporte se ha actualizado con exito',

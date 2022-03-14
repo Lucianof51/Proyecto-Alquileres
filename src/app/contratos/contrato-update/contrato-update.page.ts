@@ -7,6 +7,7 @@ import { GarantesService } from 'src/app/garantes/garantes.service';
 import { PropiedadesService } from 'src/app/propiedades/propiedades.service';
 import { LocadoresService } from 'src/app/locadores/locadores.service';
 import { InquilinosService } from 'src/app/inquilinos/inquilinos.service';
+import { HomeService } from 'src/app/home/home.service';
 
 @Component({
   selector: 'app-contrato-update',
@@ -14,8 +15,9 @@ import { InquilinosService } from 'src/app/inquilinos/inquilinos.service';
   styleUrls: ['./contrato-update.page.scss'],
 })
 export class ContratoUpdatePage implements OnInit {
+  
 
-  constructor(private garantesService: GarantesService, private propiedadesService: PropiedadesService,
+  constructor(private homeService: HomeService, private garantesService: GarantesService, private propiedadesService: PropiedadesService,
     private locadoresService: LocadoresService, private contratoService: ContratosService,
     private inquilinosService: InquilinosService,
     private activatedRoute: ActivatedRoute, private contratosService: ContratosService, private router: Router, private alertCtrl: AlertController, private formBuilder: FormBuilder) { }
@@ -37,8 +39,10 @@ export class ContratoUpdatePage implements OnInit {
   garantes = [];
   locadores = [];
   inquilinos = [];
+  usuarioId: any;
 
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
     this.propiedadesService.getPropiedades()
     .subscribe(data => {
     console.log(data);
@@ -233,12 +237,15 @@ export class ContratoUpdatePage implements OnInit {
     propiedad: ['', [Validators.required]],
     locador: ['', [Validators.required]],
     inquilino: ['', [Validators.required]],
-    garante: ['', [Validators.required]]
+    garante: ['', [Validators.required]],
+    usuario: ['']
   });
 
 
   public async submit() {
+    console.log(this.usuarioId);
     this.registrationForm.value.id = this.id2; 
+    this.registrationForm.value.usuario = this.usuarioId;
     this.contratosService.updateContrato(this.registrationForm.value).subscribe(res => {
       alert(res.toString());
   });
