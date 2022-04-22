@@ -38,6 +38,28 @@ export class ProveedoresPage implements OnInit {
   });
   }
 
+  ionViewWillEnter(){
+    this.usuarioId = this.homeService.setUsuarioId();
+    this.proveedoresService.getProveedores()
+    .subscribe(data => {
+      this.proveedores = data.filter(data => this.usuarioId === data.usuario);
+      this.proveedores = this.proveedores.map(garante =>{
+        return {
+        id: garante.id,
+        nombre: garante.nombre,
+        apellido: garante.apellido,
+        DNI: garante.DNI,
+        CUIT: garante.CUIT,
+        telefono: garante.telefono,
+        direccion: garante.direccion,
+        email: garante.email,
+        cuenta_bancaria: garante.cuenta_bancaria,
+        usuario: garante.usuario
+        };
+      });
+  });
+  }
+
   goToHome() {
     this.router.navigate(['/home', this.usuarioId]);
   }

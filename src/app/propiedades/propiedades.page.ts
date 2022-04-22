@@ -40,6 +40,26 @@ export class PropiedadesPage implements OnInit {
 });
   }
 
+  ionViewWillEnter(){
+    this.usuarioId = this.homeService.setUsuarioId();
+    console.log(this.usuarioId);
+    this.propiedadService.getPropiedades()
+    .subscribe(data => {
+      console.log(data);
+      this.propiedades = data.filter(data => this.usuarioId === data.usuario);
+      this.propiedades = this.propiedades.map(prop =>{
+      return {
+      id: prop.id,
+      ubicacion: prop.ubicacion,
+      estado: prop.estado,
+      tipo: prop.estado,
+      usuario: prop.usuario
+      };
+    });
+    console.log(this.propiedades);
+});
+  }
+
   toggleMenu() {
     this.menuCtrl.toggle();
    }

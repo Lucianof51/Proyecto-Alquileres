@@ -41,6 +41,25 @@ export class ReportePage implements OnInit {
   });
   }
 
+  ionViewWillEnter(){
+    this.usuarioId = this.homeService.setUsuarioId();
+    this.reporteService.getReportes()
+    .subscribe(data => {
+      this.reportes = data.filter(data => this.usuarioId === data.usuario);
+      this.reportes = this.reportes.map(rep =>{
+        return {
+          id: rep.id,
+          descripcion: rep.descripcion,
+          estado: rep.estado,
+          fecha: rep.fecha,
+          proveedor: rep.proveedor,
+          propiedad: rep.propiedad,
+          costo: rep.costo,
+          imagenDamage: rep.imagenDamage
+        };
+      });
+  });
+  }
 
   addNewReporte(){
     this.router.navigate(['/reporte-add']);

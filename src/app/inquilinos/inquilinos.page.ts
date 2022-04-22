@@ -36,7 +36,29 @@ export class InquilinosPage implements OnInit {
       });
   });
   }
-
+  
+  ionViewWillEnter(){
+  this.usuarioId = this.homeService.setUsuarioId();
+    this.inquilinosService.getInquilinos()
+    .subscribe(data => {
+      console.log(data);
+      this.inquilinos = data.filter(data => this.usuarioId === data.usuario);
+      this.inquilinos = this.inquilinos.map(garante =>{
+        return {
+        id: garante.id,
+        nombre: garante.nombre,
+        apellido: garante.apellido,
+        DNI: garante.DNI,
+        CUIT: garante.CUIT,
+        telefono: garante.telefono,
+        direccion: garante.direccion,
+        email: garante.email,
+        cuenta_bancaria: garante.cuenta_bancaria,
+        usuario: garante.usuario
+        };
+      });
+  });
+  }
   goToHome() {
     this.router.navigate(['/home', this.usuarioId]);
   }

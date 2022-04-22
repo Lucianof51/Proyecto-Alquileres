@@ -5,5 +5,5 @@ export interface Usuario {
     email: EmailComposer;
     password: string;
     nombre: string;
-    apellido: string;
+    apellido: string
 }
