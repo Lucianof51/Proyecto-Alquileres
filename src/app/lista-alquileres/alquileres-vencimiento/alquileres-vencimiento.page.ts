@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Contrato } from 'src/app/contratos/contrato.model';
 import { ContratosService } from 'src/app/contratos/contratos.service';
+import { HomeService } from 'src/app/home/home.service';
 import { Pago } from 'src/app/pagos/pago.model';
 import { PagosService } from 'src/app/pagos/pagos.service';
 import { PropiedadesService } from 'src/app/propiedades/propiedades.service';
@@ -19,10 +20,12 @@ export class AlquileresVencimientoPage implements OnInit {
   contratoFecha: any;
   contratoFechaMes: any;
   propiedadName: any;
+  usuarioId: any;
 
-    constructor(private pagoService: PagosService,  private contratosService: ContratosService, private propiedadService: PropiedadesService) { }
+    constructor(private homeService: HomeService, private pagoService: PagosService,  private contratosService: ContratosService, private propiedadService: PropiedadesService) { }
   
     ngOnInit() {
+      this.usuarioId = this.homeService.setUsuarioId();
       function getMes(index){
         const mes = new Array(12);
         mes[0] = 1;
@@ -57,7 +60,7 @@ export class AlquileresVencimientoPage implements OnInit {
   });
     this.contratosService.getContratos()
     .subscribe(data => { 
-     this.contratos = data.filter(data => new Date(data.fecha_egreso).getMonth()+1 === this.m);
+     this.contratos = data.filter(data => new Date(data.fecha_egreso).getMonth()+1 === this.m && this.usuarioId === data.usuario);
      this.contratos = this.contratosService.guardarDatos().map(contrato => {
           return {
             id: contrato.id,
@@ -74,7 +77,8 @@ export class AlquileresVencimientoPage implements OnInit {
             locador: contrato.locador,
             inquilino: contrato.inquilino,
             garante: contrato.garante,
-            propiedadName: this.propiedadService.getPropiedadId(contrato.propiedad).ubicacion
+            propiedadName: this.propiedadService.getPropiedadId(contrato.propiedad).ubicacion,
+            usuario: contrato.usuario
           };
           });
         console.log(this.contratos);
@@ -103,7 +107,8 @@ export class AlquileresVencimientoPage implements OnInit {
               locador: contrato.locador,
               inquilino: contrato.inquilino,
               garante: contrato.garante,
-              propiedadName: this.propiedadService.getPropiedadId(contrato.propiedad).ubicacion
+              propiedadName: this.propiedadService.getPropiedadId(contrato.propiedad).ubicacion,
+              usuario: contrato.usuario
             };
             });
           console.log(this.contratos);

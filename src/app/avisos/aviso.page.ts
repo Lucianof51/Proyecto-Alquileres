@@ -83,8 +83,6 @@ export class AvisoPage implements OnInit {
   });
   }
 
-  ionViewWillEnter() {
-  }
 
   addNewAviso(){
     this.router.navigate(['/aviso-add']);

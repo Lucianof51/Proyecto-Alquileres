@@ -76,7 +76,7 @@ export class PagosPage implements OnInit {
   }
 
   goToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home', this.usuarioId]);
   }
 
   updatePagos(pagoId){

@@ -1,16 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { InicioComponent } from './inicio/inicio/inicio.component';
 
 const routes: Routes = [
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
   {
     path: 'home',
     children: [
@@ -19,6 +11,24 @@ const routes: Routes = [
         loadChildren: () => import('./home/home-routing.module').then(m => m.HomePageRoutingModule)
     },
     ]
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+
+  {
+    path: 'registrar',
+    loadChildren: () => import('./registrar/registrar.module').then( m => m.RegistrarPageModule)
+  },
+  {
+    path: 'inicio',
+    component: InicioComponent
+  },
+  {
+    path: '',
+    redirectTo: 'inicio',
+    pathMatch: 'full'
   },
   {
     path: 'contrato-update',
@@ -357,14 +367,6 @@ const routes: Routes = [
     path: 'alquiler-v',
     // tslint:disable-next-line:max-line-length
     loadChildren: () => import('./lista-alquileres/alquileres-vencimiento/alquileres-vencimiento.module').then(m => m.AlquileresVencimientoPageModule)
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-  },
-  {
-    path: 'registrar',
-    loadChildren: () => import('./registrar/registrar.module').then( m => m.RegistrarPageModule)
   }
 ];
 

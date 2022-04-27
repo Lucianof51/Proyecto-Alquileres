@@ -37,9 +37,6 @@ export class MovimientosPage implements OnInit {
             costo: reporte.costo
           }     
          });
-      
-       
-    
 
     this.pagoService.getPagos()
     .subscribe(pago => {

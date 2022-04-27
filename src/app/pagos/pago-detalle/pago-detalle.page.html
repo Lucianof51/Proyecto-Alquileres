@@ -45,7 +45,10 @@
         <ion-item color="color">
           <ion-label color="dark"><h1> <b>Honorarios: </b>{{pago?.honorarios}}</h1></ion-label>
          </ion-item>
-        <ion-item color="colordos">
+         <ion-item color="colordos" *ngIf="pago?.agua == null">
+          <ion-label color="dark" text-wrap><h1> <b>Punitorios:</b>No se registraron pago</h1></ion-label>
+        </ion-item>
+        <ion-item color="colordos" *ngIf="pago?.agua != null">
           <ion-label color="dark"><h1> <b>Punitorios:</b> {{pago?.punitorios}}</h1></ion-label>
         </ion-item>
 
@@ -74,9 +77,9 @@
         <ion-label color="dark"><h1> <b>Expensas:</b> {{pago?.expensas}}</h1></ion-label>
       </ion-item>
       <ion-item color="colordos" *ngIf="pago?.expensas == null">
-        <ion-label color="dark"><h1> <b>Expensas:</b> No se registro pago</h1></ion-label>
+        <ion-label color="dark" text-wrap><h1> <b>Expensas:</b> No se registro pago</h1></ion-label>
       </ion-item>
-      <ion-item color="color">
+      <ion-item color="color" *ngIf="pago?.tasas1 != null">
         <ion-label color="dark"><h1> <b>{{pago?.tasas1desc}}</b>: {{pago?.tasas1}} </h1></ion-label>
       </ion-item>
       <ion-item color="colordos" *ngIf="pago?.tasas2 != null">

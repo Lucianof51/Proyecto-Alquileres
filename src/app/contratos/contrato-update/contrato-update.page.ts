@@ -181,7 +181,6 @@ export class ContratoUpdatePage implements OnInit {
       { type: 'pattern', message: 'Ingrese un valor valido' }
     ],
     punitorios: [
-      {type: 'required', message: 'Punitorios requerido'},
       { type: 'pattern', message: 'Ingrese un valor valido' }
     ],
     fecha_ingreso: [
@@ -223,7 +222,6 @@ export class ContratoUpdatePage implements OnInit {
     ]],
     punitorios: ['', 
     [
-      Validators.required,
       Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')
     ]],
     fecha_ingreso: ['', [Validators.required]],
@@ -244,6 +242,9 @@ export class ContratoUpdatePage implements OnInit {
 
   public async submit() {
     console.log(this.usuarioId);
+    if (this.registrationForm.value.punitorios == ''){
+      this.registrationForm.value.punitorios = null;
+    }
     this.registrationForm.value.id = this.id2; 
     this.registrationForm.value.usuario = this.usuarioId;
     this.contratosService.updateContrato(this.registrationForm.value).subscribe(res => {

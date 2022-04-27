@@ -37,7 +37,29 @@ export class LocadoresPage implements OnInit {
       });
   });
   }
-
+ionViewWillEnter(){
+  this.usuarioId = this.homeService.setUsuarioId();
+  this.locadoresService.getLocadores()
+  .subscribe(data => {
+    console.log(data);
+    this.locadores = data.filter(data => this.usuarioId === data.usuario);
+    console.log(this.locadores);
+    this.locadores = this.locadores.map(garante =>{
+      return {
+      id: garante.id,
+      nombre: garante.nombre,
+      apellido: garante.apellido,
+      DNI: garante.DNI,
+      CUIT: garante.CUIT,
+      telefono: garante.telefono,
+      direccion: garante.direccion,
+      email: garante.email,
+      cuenta_bancaria: garante.cuenta_bancaria,
+      usuario: garante.usuario
+      };
+    });
+});
+}
   goToHome() {
     this.router.navigate(['/home', this.usuarioId]);
   }

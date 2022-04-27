@@ -4,6 +4,7 @@ import { Prueba } from 'src/app/avisos/fechasPrueba.model';
 import { Contrato } from 'src/app/contratos/contrato.model';
 import { ContratosService } from 'src/app/contratos/contratos.service';
 import { GarantesService } from 'src/app/garantes/garantes.service';
+import { HomeService } from 'src/app/home/home.service';
 import { Pago } from 'src/app/pagos/pago.model';
 import { PagosService } from 'src/app/pagos/pagos.service';
 import { PropiedadesService } from 'src/app/propiedades/propiedades.service';
@@ -31,6 +32,8 @@ export class AlquileresCobradosPage implements OnInit {
   propiedadId: any;
   router: any;
   m2: any;
+  usuarioId: any;
+
   getMes(index){
     const mes = new Array(12);
     mes[0] = 1;
@@ -58,9 +61,10 @@ getDia(index){
   dia[6] = 'Sabado';
   return dia[index];
 }
-  constructor(private pagoService: PagosService, private contratosService: ContratosService, private propiedadService: PropiedadesService) { }
+  constructor(private homeService: HomeService, private pagoService: PagosService, private contratosService: ContratosService, private propiedadService: PropiedadesService) { }
 
   ngOnInit() {
+    this.usuarioId = this.homeService.setUsuarioId();
     function getMes(index){
       const mes = new Array(12);
       mes[0] = 1;
@@ -119,7 +123,7 @@ getDia(index){
 
     this.pagoService.getPagos() 
         .subscribe(data => {
-          this.pagos = data.filter(data => new Date(data.fecha_pago).getMonth()+1 === this.m);
+          this.pagos = data.filter(data => new Date(data.fecha_pago).getMonth()+1 === this.m && this.usuarioId== data.usuario);
           this.pagos = this.pagos.map(pago => {
             return {
               id: pago.id,
@@ -133,7 +137,8 @@ getDia(index){
               expensas: pago.expensas,
               contrato: pago.contrato,
               propiedadId: this.contratosService.getContratoId(pago.contrato).propiedad,
-              propiedadName: this.propiedadService.getPropiedadId(this.contratosService.getContratoId(pago.contrato).propiedad).ubicacion
+              propiedadName: this.propiedadService.getPropiedadId(this.contratosService.getContratoId(pago.contrato).propiedad).ubicacion,
+              usuario: pago.usuario
             };
             });
           console.log(this.pagos);
@@ -144,25 +149,26 @@ getDia(index){
 
       // FILTRO Y MAPEO DE TODOS LOS PAGOS COBRADOS EN EL MES CORRIENTE
        this.pagoService.getPagos() 
-        .subscribe(data => {
-          this.pagos = data.filter(data => new Date(data.fecha_pago).getMonth()+1 === this.m);
-          this.pagos = this.pagos.map(pago => {
-            return {
-              id: pago.id,
-              monto: pago.monto,
-              honorarios: pago.honorarios,
-              punitorios: pago.punitorios,
-              fecha_pago: pago.fecha_pago,
-              agua: pago.agua,
-              luz: pago.luz,
-              gas: pago.gas,
-              expensas: pago.expensas,
-              contrato: pago.contrato,
-              propiedadId: this.contratosService.getContratoId(pago.contrato).propiedad,
-              propiedadName: this.propiedadService.getPropiedadId(this.contratosService.getContratoId(pago.contrato).propiedad).ubicacion
-            };
-            });
-          console.log(this.pagos);
-        });
+       .subscribe(data => {
+        this.pagos = data.filter(data => new Date(data.fecha_pago).getMonth()+1 === this.m && this.usuarioId== data.usuario);
+        this.pagos = this.pagos.map(pago => {
+          return {
+            id: pago.id,
+            monto: pago.monto,
+            honorarios: pago.honorarios,
+            punitorios: pago.punitorios,
+            fecha_pago: pago.fecha_pago,
+            agua: pago.agua,
+            luz: pago.luz,
+            gas: pago.gas,
+            expensas: pago.expensas,
+            contrato: pago.contrato,
+            propiedadId: this.contratosService.getContratoId(pago.contrato).propiedad,
+            propiedadName: this.propiedadService.getPropiedadId(this.contratosService.getContratoId(pago.contrato).propiedad).ubicacion,
+            usuario: pago.usuario
+          };
+          });
+        console.log(this.pagos);
+      });
     }
 }

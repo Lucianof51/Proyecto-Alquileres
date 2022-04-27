@@ -50,7 +50,10 @@ public saveNewPago(monto2, honorarios2, punitorios2: HTMLInputElement,
   const monto = monto2.value;
   // tslint:disable-next-line:no-unused-expression
   const honorarios = (monto2.value * honorarios2.value) / 100;
-  const punitorios = punitorios2.value;
+  let punitorios = punitorios2.value;
+  if (punitorios === ''){
+    punitorios = null
+  }
   // tslint:disable-next-line:variable-name
   const fecha_pago = fecha_pago2.value;
   const usuario = this.usuarioId;             

@@ -52,7 +52,7 @@ export class PagosPage implements OnInit {
       gas: pago.gas,
       expensas: pago.expensas,
       contrato: pago.contrato,
-      usuario: pago.usuario
+      usuario: this.usuarioId
     };
     });
     console.log(this.pagos);
@@ -83,7 +83,7 @@ export class PagosPage implements OnInit {
       expensas: pago.expensas,
       contrato: pago.contrato,
       propiedadName: this.propiedadesService.getPropiedadId(this.contratoService.getContratoId(pago.contrato).propiedad).ubicacion,
-      usuario: pago.usuario
+      usuario: this.usuarioId
     };
     });
     console.log(this.pagos);

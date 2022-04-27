@@ -1,0 +1,25 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url(../../assets/fonts/Austein.ttf);
+}
+  
+.bienvenido {
+    font-family: myFirstFont !important;
+    color: white;
+    font-size:2.1em;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-block;
+    left: 23%;
+    position: absolute;
+
+}
+
+.img-logo {
+    top: 100%;
+    background-size: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}

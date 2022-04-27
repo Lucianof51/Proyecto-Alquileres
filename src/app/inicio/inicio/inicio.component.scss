@@ -1,0 +1,138 @@
+.img-logo {
+    width: 350px;
+    height: 350px;
+    background-size: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.background {
+    background-image: url(../../../assets/images/fondo5.jpg)
+}
+
+.boton {
+    width: 125px;
+    height: 60px;
+    margin: 0;
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.btn-neon{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    padding: 15px 30px;
+    color: #fff;
+    letter-spacing: 4px;
+    text-decoration: none;
+    font-size: 20px;
+    overflow: hidden;
+    transition: 0.2s;
+    
+    
+}
+.btn-neon:hover{
+    background: #45c76c;
+    box-shadow: 0 0 10px #45c76c, 0 0 40px #45c76c, 0 0 80px #45c76c;
+ }
+.btn-neon span{
+   transition: 0.5;
+}
+
+.btn-neon #span1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent,#45c76c);
+    animation: animate1 2s linear infinite;
+}
+
+ @keyframes animate1 {
+     0%
+     {
+        transform: translateX(-100%);
+     }
+     100%
+     {
+         transform: translateX(100%);
+     }
+ }
+
+ .btn-neon #span3{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(to top, transparent,#45c76c);
+    animation: animate3 2s linear infinite;
+    animation-delay: 1s;
+}
+
+@keyframes animate3 {
+    0%
+    {
+       transform: translateY(-100%);
+    }
+    100%
+    {
+        transform: translateY(100%);
+    }
+}
+
+.btn-neon #span2{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent,#45c76c);
+    animation: animate2 2s linear infinite;
+}
+
+@keyframes animate2 {
+    0%
+    {
+       transform: translateX(100%);
+    }
+    100%
+    {
+        transform: translateX(-100%);
+    }
+}
+
+
+
+.btn-neon #span4{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100px;
+    background: linear-gradient(360deg, transparent,#45c76c);
+    animation: animate4 2s linear infinite;
+    animation-delay: 1s;
+}
+
+@keyframes animate4 {
+    0%
+    {
+       transform: translateY(100%);
+    }
+    100%
+    {
+        transform: translateY(-100%);
+    }
+}

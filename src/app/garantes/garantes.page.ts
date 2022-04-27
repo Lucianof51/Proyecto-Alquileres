@@ -40,7 +40,8 @@ export class GarantesPage implements OnInit {
         usuario: garante.usuario
         };
       });
-  });  
+  });
+    
   }
 
   ionViewWillEnter(){
@@ -66,8 +67,9 @@ export class GarantesPage implements OnInit {
         usuario: garante.usuario
         };
       });
-  });  
+  });
   }
+
   goToHome() {
     this.router.navigate(['/home' , this.usuarioId]);
   }
