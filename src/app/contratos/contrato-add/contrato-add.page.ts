@@ -59,9 +59,6 @@ export class ContratoAddPage implements OnInit {
   get honorarios() {
     return this.registrationForm.get("honorarios");
   }
-  get punitorios() {
-    return this.registrationForm.get("punitorios");
-  }
   get fecha_ingreso() {
     return this.registrationForm.get("fecha_ingreso");
   }
@@ -104,9 +101,6 @@ export class ContratoAddPage implements OnInit {
       {type: 'required', message: 'Honorarios requerido'},
       { type: 'pattern', message: 'Ingrese un valor valido' }
     ],
-    punitorios: [
-      { type: 'pattern', message: 'Ingrese un valor valido' }
-    ],
     fecha_ingreso: [
       {type: 'required', message: 'Fecha de ingreso requerida'},
     ],
@@ -141,10 +135,6 @@ export class ContratoAddPage implements OnInit {
     honorarios: ['', 
     [
       Validators.required,
-      Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')
-    ]],
-    punitorios: ['', 
-    [
       Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')
     ]],
     fecha_ingreso: ['', [Validators.required]],

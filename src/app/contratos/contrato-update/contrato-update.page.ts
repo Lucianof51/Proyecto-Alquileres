@@ -25,7 +25,6 @@ export class ContratoUpdatePage implements OnInit {
   id2: any;
   valor2: any;
   honorarios2: any;
-  punitorios2: any;
   fecha_ingreso2: any;
   fecha_egreso2: any;
   fecha_rescision2: any;
@@ -76,7 +75,6 @@ export class ContratoUpdatePage implements OnInit {
       this.contratosService.getContrato(this.id2).subscribe(data =>{
         this.valor2 = data.valor;
         this.honorarios2 = data.honorarios;
-        this.punitorios2 = data.punitorios;
         this.fecha_ingreso2 = data.fecha_ingreso;
         this.fecha_egreso2 = data.fecha_egreso;
         this.fecha_rescision2 = data.fecha_rescision;
@@ -102,12 +100,6 @@ export class ContratoUpdatePage implements OnInit {
       return this.registrationForm.get('honorarios');
       }
     }
-  get punitorios() {
-    if(this.registrationForm.get('punitorios') != null)
-    {
-    return this.registrationForm.get('punitorios');
-    }
-  }
 
   get fecha_ingreso() {
     if(this.registrationForm.get('fecha_ingreso') != null)
@@ -180,9 +172,6 @@ export class ContratoUpdatePage implements OnInit {
       {type: 'required', message: 'Honorarios requerido'},
       { type: 'pattern', message: 'Ingrese un valor valido' }
     ],
-    punitorios: [
-      { type: 'pattern', message: 'Ingrese un valor valido' }
-    ],
     fecha_ingreso: [
       {type: 'required', message: 'Fecha de ingreso requerida'},
     ],
@@ -218,10 +207,6 @@ export class ContratoUpdatePage implements OnInit {
     honorarios: ['', 
     [
       Validators.required,
-      Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')
-    ]],
-    punitorios: ['', 
-    [
       Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-s./0-9]*$')
     ]],
     fecha_ingreso: ['', [Validators.required]],

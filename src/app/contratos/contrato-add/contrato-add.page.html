@@ -32,11 +32,7 @@
             <small class="error-message">{{error.message}}</small>
           </ng-container>
         </div>
-
-        <ion-item color="dark">
-          <ion-label position="floating">Punitorios</ion-label>
-          <ion-input autocapitalize inputmode="number"  formControlName="punitorios"></ion-input>
-        </ion-item>
+        
         <div *ngFor="let error of errorMessages.punitorios">
           <ng-container *ngIf="punitorios.hasError(error.type) && (punitorios.dirty || punitorios.touched)">
             <small class="error-message">{{error.message}}</small>

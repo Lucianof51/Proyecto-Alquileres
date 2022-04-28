@@ -96,7 +96,6 @@ export class AlquileresVencimientoPage implements OnInit {
               id: contrato.id,
               valor: contrato.valor,
               honorarios: contrato.honorarios,
-              punitorios: contrato.punitorios,
               fecha_ingreso: contrato.fecha_ingreso,
               fecha_egreso: contrato.fecha_egreso,
               fecha_rescision: contrato.fecha_rescision,
