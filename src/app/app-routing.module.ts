@@ -4,6 +4,10 @@ import { InicioComponent } from './inicio/inicio/inicio.component';
 
 const routes: Routes = [
   {
+    path: 'splash',
+    loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
+  },
+  {
     path: 'home',
     children: [
       {
@@ -27,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'inicio',
+    redirectTo: 'splash',
     pathMatch: 'full'
   },
   {
@@ -367,6 +371,10 @@ const routes: Routes = [
     path: 'alquiler-v',
     // tslint:disable-next-line:max-line-length
     loadChildren: () => import('./lista-alquileres/alquileres-vencimiento/alquileres-vencimiento.module').then(m => m.AlquileresVencimientoPageModule)
+  },
+  {
+    path: 'splash',
+    loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   }
 ];
 
