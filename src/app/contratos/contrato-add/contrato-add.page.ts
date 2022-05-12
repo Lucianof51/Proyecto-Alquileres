@@ -153,9 +153,6 @@ export class ContratoAddPage implements OnInit {
   });
 
   public async submit() {
-    if (this.registrationForm.value.punitorios == ''){
-      this.registrationForm.value.punitorios = null;
-    }
     this.registrationForm.value.usuario = this.usuarioId;
     this.contratoService.addContrato(this.registrationForm.value).subscribe(async res => {
       alert(res.toString());

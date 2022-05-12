@@ -18,19 +18,19 @@
       <ion-label color="dark" text-wrap><h1><b>Descripción: </b>{{reporte?.descripcion}}</h1></ion-label>
     </ion-item>
     <ion-item color="colordos">
-      <ion-label color="dark"><h1><b>Propiedad: </b>{{propiedad?.ubicacion}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Propiedad: </b>{{propiedad?.ubicacion}}</h1></ion-label>
     </ion-item>
     <ion-item color="color">
-      <ion-label color="dark"><h1><b>Proveedor: </b>{{proveedor?.nombre}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Proveedor: </b>{{proveedor?.nombre}} {{proveedor?.apellido}}</h1></ion-label>
     </ion-item>
     <ion-item color="colordos">
-      <ion-label color="dark"><h1><b>Estado: </b>{{reporte?.estado}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Estado: </b>{{reporte?.estado}}</h1></ion-label>
     </ion-item>
     <ion-item color="color">
-      <ion-label color="dark"><h1><b>Costo: </b>{{reporte?.costo}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Costo: </b>{{reporte?.costo}}</h1></ion-label>
     </ion-item>
     <ion-item color="colordos">
-      <ion-label color="dark"><h1><b>Fecha de creación: </b>{{reporte?.fecha}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Fecha de creación: </b>{{reporte?.fecha}}</h1></ion-label>
     </ion-item>
     <ion-item color="color" *ngIf="reporte?.cover">
       <ion-label color="dark"><h1><b>Imagen:</b>

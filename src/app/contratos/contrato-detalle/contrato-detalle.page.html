@@ -18,28 +18,28 @@
 <ion-content [fullscreen]="true">
   <ion-card>
     <ion-item color="color">
-      <ion-label color="dark"><h1><b>ID: </b> {{contratos?.id}}</h1></ion-label>
+      <ion-label color="dark"><h1 text-wrap><b>ID: </b> {{contratos?.id}}</h1></ion-label>
     </ion-item>
     <ion-item color="colordos" *ngIf="contratos?.tipo_contrato != ''">
-      <ion-label color="dark"><h1><b>Tipo de contrato: </b>{{contratos?.tipo_contrato}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Tipo de contrato: </b>{{contratos?.tipo_contrato}}</h1></ion-label>
     </ion-item>
     <ion-item color="colordos" *ngIf="contratos?.tipo_contrato == ''">
       <ion-label color="dark" text-wrap><h1><b>Tipo de contrato: </b>No se registraron datos</h1></ion-label>
     </ion-item>
     <ion-item color="color">
-      <ion-label color="dark"><h1><b>Valor: </b> {{contratos?.valor}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Valor: </b> {{contratos?.valor}}</h1></ion-label>
     </ion-item>
     <ion-item color="colordos">
-      <ion-label color="dark"><h1><b>Honorarios: </b> {{contratos?.honorarios}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Honorarios: </b> {{contratos?.honorarios}} %</h1></ion-label>
     </ion-item>
     <ion-item color="colordos">
-      <ion-label color="dark"><h1><b>Vencimiento de pago: </b> {{contratos?.vencimiento_pago}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Vencimiento día del pago: </b> {{contratos?.vencimiento_pago}}</h1></ion-label>
     </ion-item>
     <ion-item color="color">
-      <ion-label color="dark"><h1><b>Fecha de ingreso: </b> {{contratos?.fecha_ingreso}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Fecha de ingreso: </b> {{contratos?.fecha_ingreso}}</h1></ion-label>
     </ion-item>
     <ion-item color="colordos">
-      <ion-label color="dark"><h1><b>Fecha de egreso: </b> {{contratos?.fecha_egreso}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Fecha de egreso: </b> {{contratos?.fecha_egreso}}</h1></ion-label>
     </ion-item>
     <ion-item color="color" *ngIf="contratos?.fecha_rescision != null">
       <ion-label color="dark"><h1><b>Fecha de rescisión: </b> {{contratos?.fecha_rescision}}</h1></ion-label>
@@ -48,16 +48,16 @@
       <ion-label color="dark" text-wrap><h1><b>Fecha de rescisión: </b>No se ha registrado fecha</h1></ion-label>
     </ion-item>
     <ion-item color="colordos">
-      <ion-label color="dark"><h1><b>Propiedad: </b> {{propiedad?.ubicacion}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Propiedad: </b> {{propiedad?.ubicacion}}</h1></ion-label>
     </ion-item>
     <ion-item color="color">
-      <ion-label color="dark"><h1><b>Locador: </b> {{locador?.nombre}} {{locador?.apellido}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Locador: </b> {{locador?.nombre}} {{locador?.apellido}}</h1></ion-label>
     </ion-item>
     <ion-item color="colordos">
-      <ion-label color="dark"><h1><b>Inquilino: </b> {{inquilino?.nombre}} {{inquilino?.apellido}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Inquilino: </b> {{inquilino?.nombre}} {{inquilino?.apellido}}</h1></ion-label>
     </ion-item>
     <ion-item color="color">
-      <ion-label color="dark"><h1><b>Garante: </b> {{garante?.nombre}} {{garante?.apellido}}</h1></ion-label>
+      <ion-label color="dark" text-wrap><h1><b>Garante: </b> {{garante?.nombre}} {{garante?.apellido}}</h1></ion-label>
     </ion-item>
   </ion-card>
 </ion-content>

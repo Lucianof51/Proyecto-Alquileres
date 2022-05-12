@@ -46,14 +46,14 @@
           <ion-label color="dark"><h1> <b>Honorarios: </b>{{pago?.honorarios}}</h1></ion-label>
          </ion-item>
          <ion-item color="colordos" *ngIf="pago?.agua == null">
-          <ion-label color="dark" text-wrap><h1> <b>Punitorios:</b>No se registraron pago</h1></ion-label>
+          <ion-label color="dark" text-wrap><h1> <b>Punitorios:</b>No se registró pago</h1></ion-label>
         </ion-item>
         <ion-item color="colordos" *ngIf="pago?.agua != null">
           <ion-label color="dark"><h1> <b>Punitorios:</b> {{pago?.punitorios}}</h1></ion-label>
         </ion-item>
 
         <ion-item color="color" *ngIf="pago?.agua == null">
-          <ion-label color="dark"><h1> <b>Agua:</b> No se registro pago</h1></ion-label>
+          <ion-label color="dark"><h1> <b>Agua:</b> No se registró pago</h1></ion-label>
         </ion-item>
         <ion-item color="color" *ngIf="pago?.agua != null">
           <ion-label color="dark"><h1> <b>Agua:</b>{{pago?.agua}}</h1></ion-label>
@@ -63,21 +63,21 @@
         <ion-label color="dark"><h1> <b>Gas:</b> {{pago?.gas}}</h1></ion-label>
       </ion-item>
       <ion-item color="colordos" *ngIf="pago?.gas == null">
-        <ion-label color="dark"><h1> <b>Gas:</b> No se registro pago</h1></ion-label>
+        <ion-label color="dark"><h1> <b>Gas:</b> No se registró pago</h1></ion-label>
       </ion-item>
 
       <ion-item color="color" *ngIf="pago?.luz != null">
         <ion-label color="dark"><h1> <b>Luz:</b> {{pago?.luz}}</h1></ion-label>
       </ion-item>
       <ion-item color="color" *ngIf="pago?.luz == null">
-        <ion-label color="dark"><h1> <b>Luz:</b> No se registro pago</h1></ion-label>
+        <ion-label color="dark"><h1> <b>Luz:</b> No se registró pago</h1></ion-label>
       </ion-item>
 
       <ion-item color="colordos" *ngIf="pago?.expensas != null">
         <ion-label color="dark"><h1> <b>Expensas:</b> {{pago?.expensas}}</h1></ion-label>
       </ion-item>
       <ion-item color="colordos" *ngIf="pago?.expensas == null">
-        <ion-label color="dark" text-wrap><h1> <b>Expensas:</b> No se registro pago</h1></ion-label>
+        <ion-label color="dark" text-wrap><h1> <b>Expensas:</b> No se registró pago</h1></ion-label>
       </ion-item>
       <ion-item color="color" *ngIf="pago?.tasas1 != null">
         <ion-label color="dark"><h1> <b>{{pago?.tasas1desc}}</b>: {{pago?.tasas1}} </h1></ion-label>

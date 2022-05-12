@@ -25,3 +25,21 @@
 #container a {
   text-decoration: none;
 }
+
+
+ion-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 40px 0;
+}
+
+ion-card{
+  background: #2d3436;
+  width: 150px;
+  height: 280px;
+  border-radius: 15px;
+  margin: 15px;
+  display: inline-block;
+}

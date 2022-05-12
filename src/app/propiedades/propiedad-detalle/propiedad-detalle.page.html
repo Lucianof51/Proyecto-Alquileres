@@ -1,10 +1,10 @@
 <ion-header>
   <ion-toolbar color="color">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/propiedades">
+      <ion-back-button color="dark" defaultHref="/propiedades">
       </ion-back-button>
     </ion-buttons>
-    <ion-title>{{propiedades?.ubicacion}}</ion-title>
+    <ion-title color="dark">{{propiedades?.ubicacion}}</ion-title>
     <ion-buttons slot="end">
       <ion-button color="danger" (click)="deletePlace()">
         <ion-icon name="trash"></ion-icon>
@@ -18,20 +18,18 @@
     <ion-item color="colordos">
       <ion-icon color="secondary"name="location-outline"></ion-icon>
       &nbsp;
+        <h2 class="texto" text-wrap><b>Ubicacion:</b> {{propiedades?.ubicacion}}</h2>
+    </ion-item>
+
+    <ion-item color="color" *ngIf="propiedades?.estado == 'Disponible'">
       <ion-label color="dark" text-wrap>
-        <h1><b>Ubicacion:</b> {{propiedades?.ubicacion}}</h1>
+     <h1 class="texto"><b>Estado:</b> {{propiedades?.estado}}</h1>
       </ion-label>
     </ion-item>
 
-    <ion-item color="colortres" *ngIf="propiedades?.estado == 'Disponible'">
-      <h3><b>Estado:</b> {{propiedades?.estado}}</h3>
-      &nbsp;
-      <ion-icon color="tertiary" name="checkmark-circle-outline"></ion-icon>
-    </ion-item>
-
     <ion-item color="color" *ngIf="propiedades?.estado == 'En alquiler'">
-      <ion-label color="dark">
-        <h1><b>Estado:</b> {{propiedades?.estado}}</h1>
+      <ion-label color="dark" text-wrap>
+        <h1 class="texto"><b>Estado:</b> {{propiedades?.estado}}</h1>
       <ion-button slot="end" color="colortres" (click)="gotoAlquileres()">
         <ion-icon color="light"name="reader-outline"></ion-icon>
       </ion-button>
@@ -39,34 +37,34 @@
     </ion-item>
 
     <ion-item color="colordos">
-      <ion-label color="dark">
-        <h1><b>Tipo de propiedad:</b> {{propiedades?.tipo}}</h1>
+      <ion-label color="dark" text-wrap>
+        <h1 class="texto"><b>Tipo de propiedad:</b> {{propiedades?.tipo}}</h1>
       </ion-label>
     </ion-item>
 
     <ion-item color="color">
-      <ion-label color="dark">
-        <h1><b>Locador:</b> {{locador?.nombre}} {{locador?.apellido}}</h1>
+      <ion-label color="dark" text-wrap>
+        <h1 class="texto"><b>Locador:</b> {{locador?.nombre}} {{locador?.apellido}}</h1>
       </ion-label>
     </ion-item>
 
     <ion-item color="colordos" *ngIf="propiedades?.inventario != ''">
       <ion-label color="dark" text-wrap>
-        <h1><b>Inventario:</b> {{propiedades?.inventario}}</h1>
+        <h1 class="texto"><b>Inventario:</b> {{propiedades?.inventario}}</h1>
       </ion-label>
     </ion-item>
 
     <ion-item color="colordos" *ngIf="propiedades?.inventario == ''">
       <ion-label color="dark" text-wrap>
-        <h1><b>Inventario:</b> No se registraron datos</h1>
+        <h1 class="texto"><b>Inventario:</b> No se registraron datos</h1>
       </ion-label>
     </ion-item>
     <br>
     <ion-item color="color">
-      <ion-label  color="dark"><h1><b>Interior</b></h1></ion-label>
+      <ion-label  color="dark"><h1 class="texto"><b>Interior</b></h1></ion-label>
     </ion-item>
     <ion-item color="colordos" *ngIf="propiedades?.imagen">
-      <ion-label color="dark"><h1>Imagen:
+      <ion-label color="dark"><h1 class="texto">Imagen:
         <br>
         <img src="{{propiedades?.imagen}}"></h1></ion-label>
        </ion-item>
@@ -75,19 +73,17 @@
          </ion-item>
          <br>
     <ion-item color="colordos" *ngIf="propiedades?.imagen2">
-      <ion-label color="dark"><h1>Imagen 2:
+      <ion-label color="dark"><h1 class="texto">Imagen 2:
         <br>
         <img src="{{propiedades?.imagen2}}"></h1></ion-label>
        </ion-item>
-       <ion-item color="colordos" *ngIf="propiedades?.imagen2 == null">
-   <ion-text color="dark">No se ha encontrado ninguna imagen</ion-text>
-         </ion-item>
+  
          <br>
          <ion-item color="color">
-          <ion-label  color="dark"><h1><b>Exterior</b></h1></ion-label>
+          <ion-label  color="dark"><h1 class="texto"><b>Exterior</b></h1></ion-label>
         </ion-item>
     <ion-item color="colordos" *ngIf="propiedades?.imagen3">
-      <ion-label color="dark"><h1>Imagen:
+      <ion-label color="dark"><h1 class="texto">Imagen:
         <br>
         <img src="{{propiedades?.imagen3}}"></h1></ion-label>
        </ion-item>
@@ -96,13 +92,11 @@
          </ion-item>
          <br>
     <ion-item color="colordos" *ngIf="propiedades?.imagen4">
-      <ion-label color="dark"><h1>Imagen 2:
+      <ion-label color="dark"><h1 class="texto">Imagen 2:
         <br>
         <img src="{{propiedades?.imagen4}}"></h1></ion-label>
        </ion-item>
-       <ion-item color="colordos" *ngIf="propiedades?.imagen4 == null">
-   <ion-text color="dark" text-wrap>No se ha encontrado ninguna imagen</ion-text>
-         </ion-item>
+
   </ion-card>
    
 </ion-content>

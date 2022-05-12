@@ -4,6 +4,7 @@ import { Pago } from 'src/app/pagos/pago.model';
 import { ContratosService } from 'src/app/contratos/contratos.service';
 import { PropiedadesService } from 'src/app/propiedades/propiedades.service';
 import { HomeService } from 'src/app/home/home.service';
+import { Contrato } from 'src/app/contratos/contrato.model';
 
 @Component({
   selector: 'app-alquileres-pendientes',
@@ -80,33 +81,41 @@ usuarioId: any;
         // FILTRO Y MAPEO DE TODOS LOS PAGOS PENDIENTES EN EL MES CORRIENTE
         this.pagoService.getPagos() 
         .subscribe(data => {
-          this.pagos = data.filter(data => new Date(data.fecha_pago).getMonth()+1 < this.m && new Date(data.fecha_pago).getFullYear() === this.anio &&  this.usuarioId === data.usuario);
-          this.pagos = this.pagos.map(pago => {
-            return {
-              id: pago.id,
-              monto: pago.monto,
-              honorarios: pago.honorarios,
-              punitorios: pago.punitorios,
-              fecha_pago: pago.fecha_pago,
-              agua: pago.agua,
-              luz: pago.luz,
-              gas: pago.gas,
-              expensas: pago.expensas,
-              contrato: pago.contrato,
-              dia: new Date(pago.fecha_pago).getDate(),
-              mes: new Date(pago.fecha_pago).getMonth(),
-              year: new Date(pago.fecha_pago).getFullYear(),
-              propiedadId: this.contratosService.getContratoId(pago.contrato).propiedad,
-              propiedadName: this.propiedadService.getPropiedadId(this.contratosService.getContratoId(pago.contrato).propiedad).ubicacion,
-              usuario: pago.usuario
-            };
+          this.pagos = data.filter(data => new Date(data.fecha_pago).getMonth()+1 === this.m && new Date(data.fecha_pago).getFullYear() === this.anio &&  this.usuarioId === data.usuario)
+          if(this.pagos.length === 0){
+            this.pagos = data.filter(data => new Date(data.fecha_pago).getMonth()+1 < this.m && new Date(data.fecha_pago).getFullYear() === this.anio &&  this.usuarioId === data.usuario);
+            this.pagos = this.pagos.map(pago => {
+              return {
+                id: pago.id,
+                monto: pago.monto,
+                honorarios: pago.honorarios,
+                punitorios: pago.punitorios,
+                fecha_pago: pago.fecha_pago,
+                agua: pago.agua,
+                luz: pago.luz,
+                gas: pago.gas,
+                expensas: pago.expensas,
+                contrato: pago.contrato,
+                dia: new Date(pago.fecha_pago).getDate(),
+                mes: new Date(pago.fecha_pago).getMonth(),
+                year: new Date(pago.fecha_pago).getFullYear(),
+                propiedadId: this.contratosService.getContratoId(pago.contrato).propiedad,
+                propiedadName: this.propiedadService.getPropiedadId(this.contratosService.getContratoId(pago.contrato).propiedad).ubicacion,
+                usuario: pago.usuario
+              };
+              }); 
+            console.log(this.pagos);
+            this.pagos = this.pagos.sort(function(a,b){
+              return new Date(b.fecha_pago).getTime() - new Date(a.fecha_pago).getTime();
             });
-          console.log(this.pagos);
-          this.pagos = this.pagos.sort(function(a,b){
-            return new Date(b.fecha_pago).getTime() - new Date(a.fecha_pago).getTime();
-          });
+          }
+          else{
+            console.log("Se encontro pago");
+            console.log(this.pagos);
+            this.pagos = null;
+          }
+       
         });
-        
-    }
-    
+     
+      }
 }

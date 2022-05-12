@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Contrato } from 'src/app/contratos/contrato.model';
@@ -22,6 +23,9 @@ export class MovimientosPage implements OnInit {
   propiedadId: any;
   movimientos2 = []
   usuarioId: any;
+  saldopos: number;
+  saldoneg: number;
+  saldo: number;
   constructor(private homeService: HomeService, private pagoService: PagosService, private reporteService: ReporteService,
               private propiedadService: PropiedadesService, private contratoService: ContratosService, private router: Router) { }
 
@@ -29,6 +33,11 @@ export class MovimientosPage implements OnInit {
     this.usuarioId = this.homeService.setUsuarioId();
     this.reporteService.getReportes()
     .subscribe(reporte => {
+      this.saldoneg = reporte.reduce((
+        acc,
+        obj,
+      )=> acc + (obj.costo), 0);
+      console.log(this.saldoneg);
       this.reportes = reporte.filter(reporte => this.usuarioId === reporte.usuario);
         this.movimientos = this.reportes.map(reporte => {
           return {
@@ -37,10 +46,17 @@ export class MovimientosPage implements OnInit {
             costo: reporte.costo
           }     
          });
+    
 
     this.pagoService.getPagos()
     .subscribe(pago => {
-      this.pagos = pago.filter(pago => this.usuarioId === pago.usuario);
+      this.saldopos = pago.reduce((
+        acc,
+        obj,
+      )=> acc + (obj.monto), 0);
+      console.log(this.saldopos);
+      this.saldo = this.saldopos - this.saldoneg;
+      this.pagos = pago.filter(pago => this.usuarioId === pago.usuario);  
         this.movimientos2 = this.pagos.map(pago => {
           return {
             id2: pago.id,
@@ -49,7 +65,6 @@ export class MovimientosPage implements OnInit {
             contrato: pago.contrato
           }
         });
-     
     console.log(this.movimientos);
     console.log(this.movimientos2);
     this.movimientos = this.movimientos.concat(this.movimientos2);
@@ -62,7 +77,6 @@ export class MovimientosPage implements OnInit {
   }
 
   mostrarPago(pagoId, contrato){
-    console.log(pagoId);
     this.router.navigate(['pagos', contrato, pagoId]);
   }
 

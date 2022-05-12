@@ -72,9 +72,26 @@ export class PropiedadDetallePage implements OnInit {
       },
       {
         text: 'Delete',
-        handler: () => {
-          this.propiedadService.deletePropiedad(this.propiedades.id);
-          this.router.navigate(['/propiedades']);
+        handler: async () => {
+          if (this.propiedades.estado == "Disponible"){
+            this.propiedadService.deletePropiedad(this.propiedades.id);
+            this.router.navigate(['/propiedades']);
+          }
+          else{
+            console.log("Esta propiedad no se puede eliminar");
+            const alertElement = await this.alertCtrl.create({
+              header: 'Esta propiedad no puede ser eliminada porque está sujeta a un contrato',
+              
+              buttons: [
+                {
+                 text: 'OK',
+                 role: 'cancel'
+                },
+              ]
+            });
+            await alertElement.present();
+
+          }
         }
       }
     ]

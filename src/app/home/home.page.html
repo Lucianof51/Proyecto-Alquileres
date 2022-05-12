@@ -10,8 +10,48 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-   <ion-button (click)="detalle_caja()" size="large" expand="full">Detalle de caja</ion-button>
-   <ion-button (click)="lista_alquileres()" size="large" expand="full" color="secondary">Lista de alquileres</ion-button>
-   <ion-button (click)="reportes()" size="large" expand="full" color="danger">Reportes</ion-button>
-   <ion-button (click)="avisos()" size="large" expand="full" color="success">Avisos</ion-button>
+  <ion-card (click)="detalle_caja()">
+    <ion-card-header>
+      <br>
+      <ion-card-title align="center" color="light">Detalle de caja</ion-card-title>
+    </ion-card-header>
+    <br>
+    <ion-card-content align="center">
+     Historial de todos los pagos y gastos realizados
+    </ion-card-content>
+
+  </ion-card>
+  <ion-card (click)="lista_alquileres()">
+    <ion-card-header>
+      <br>
+      <ion-card-title align="center" color="light">Lista de alquileres</ion-card-title>
+    </ion-card-header>
+    <br>
+    <ion-card-content align="center">
+     Listado de alquieres pagados, pendientes y a vencer.
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card (click)="reportes()">
+    <ion-card-header>
+      <br>
+      <ion-card-title align="center" color="light">Reportes</ion-card-title>
+    </ion-card-header>
+    <br>
+    <ion-card-content align="center">
+      Informe de daños o cualquier tipo de casos a solventar
+    </ion-card-content>
+  </ion-card>
+
+  
+  <ion-card (click)="avisos()">
+    <ion-card-header>
+      <br>
+      <ion-card-title align="center" color="light">Avisos</ion-card-title>
+    </ion-card-header>
+    <br>
+    <ion-card-content align="center">
+      Mensaje para notificar a cualquier contacto registrado en su cuenta
+    </ion-card-content>
+  </ion-card>
 </ion-content>
